@@ -22,19 +22,15 @@ var UsersSchema = new mongoose.Schema({
         type : String,
         required : true,
     },
-    Street : {
+    City : {
         type : String,
         required : true,      
-    },
-    State : {
-        type : String,
-        required : true,
     },
     District : {
         type : String,
         required : true,
     },
-    Country : {
+    State : {
         type : String,
         required : true,
     },

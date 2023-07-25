@@ -22,19 +22,15 @@ var ShowroomSchema = new mongoose.Schema({
         type : String,
         required : true,
     },
-    Street : {
+    City : {
         type : String,
         required : true,      
-    },
-    State : {
-        type : String,
-        required : true,
     },
     District : {
         type : String,
         required : true,
     },
-    Country : {
+    State : {
         type : String,
         required : true,
     },
@@ -49,7 +45,7 @@ var ShowroomSchema = new mongoose.Schema({
     UserType : {
         type : String,
         required : true,
-        default : "User"
+        default : "Showroom"
     },
     ShowroomName: {
         type : String,

@@ -17,7 +17,7 @@ var userroute = require('./routes/users')
 var showroomroute = require('./routes/showroom')
 var loginroute = require('./routes/login')
 var carrouter = require('./routes/cardetails')
-
+var carbookingrouter = require('./routes/carbooking')
 
 // Connect to Database -MongoDB
 mongoose.set('strictQuery', true);
@@ -40,6 +40,7 @@ app.use('/api', userroute)
 app.use('/api', showroomroute)
 app.use('/api', loginroute)
 app.use('/api', carrouter)
+app.use('/api', carbookingrouter)
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)

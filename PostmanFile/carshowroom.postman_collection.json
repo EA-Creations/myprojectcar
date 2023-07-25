@@ -1,0 +1,323 @@
+{
+	"info": {
+		"_postman_id": "3bb10596-f3d4-4936-9069-97391559136e",
+		"name": "carshowroom",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Registration",
+			"item": [
+				{
+					"name": "UserReg",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\" : \"Abhi\",\r\n    \"Email\" : \"abhi@gmail.com\",\r\n    \"Phone\" : 9656293183,\r\n    \"Address\" : \"hhaa\",\r\n    \"City\" : \"gggs\",\r\n    \"District\" : \"shshhs\",\r\n    \"State\" : \"sdsd\",\r\n    \"Pincode\" : 686667,\r\n    \"Password\" : \"sasas\",\r\n    \"userType\" : \"User\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/userreg",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"userreg"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ShowroomReg",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\" : \"Abhi\",\r\n    \"Email\" : \"abhi@gmail.com\",\r\n    \"Phone\" : 9656293183,\r\n    \"Address\" : \"hhaa\",\r\n    \"City\" : \"gggs\",\r\n    \"District\" : \"shshhs\",\r\n    \"State\" : \"sdsd\",\r\n    \"Pincode\" : 686667,\r\n    \"Password\" : \"sasas\",\r\n    \"userType\" : \"Showroom\",\r\n    \"ShowroomName\" : \"Some\",\r\n    \"License\" : \"Someem\",\r\n    \"Verification\" : false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/showroomreg",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"showroomreg"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Email\" : \"abhi1@gmail.com\",\r\n    \"Password\" : \"abcd\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Car",
+			"item": [
+				{
+					"name": "AddCars",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Showroom\" : \"64bf8bbb6b0545b38d1213c6\",\r\n    \"Carmodel\" : \"Toyota Corolla\",\r\n    \"Manufacturer\" : \"Toyota\",\r\n    \"Carspecs\" : \"Engine - 1.8L 4-cylinder, Tarnsmission-Automatic, Fuel Type - Petrol, Dimention - 4620 x 1776 x 1460 mm\",\r\n    \"Price\" : \"22,500 INR\",\r\n    \"Milleage\" : \"35 mpg\",\r\n    \"Features\" : \"Automatic climate control, Touchscreen infotainment system, Cruise control\",\r\n    \"Colors\" : \"Colors.blue, Colors.red, Colors.black\",\r\n    \"Availability\" : \"Available\",\r\n    \"Warranty\" : \"3 years or 36,000 miles\",\r\n    \"Loan\" : \"Available\",\r\n    \"CarImage\" : \"image\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/addCar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"addCar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetCar",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Showroom\" : \"64bcd08f925d4745247b0065\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/getCar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"getCar"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Showroom",
+			"item": [
+				{
+					"name": "GetAllShowroom",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/getAllShowroom",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"getAllShowroom"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetShowroom",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ShowroomId\" : \"64bcd08f925d4745247b0065\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/getShowroom",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"getShowroom"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "GetAllUsers",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/getAllUsers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"getAllUsers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetUser",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"UserId\" : \"64bccd59cd918ad48552760f\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/getUser",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"getUser"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CarBooking",
+			"item": [
+				{
+					"name": "AddBooking",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

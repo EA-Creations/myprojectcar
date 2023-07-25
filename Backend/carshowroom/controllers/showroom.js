@@ -16,7 +16,7 @@ exports.Registration = (req, res) => {
             return res.status(404).json({ 'msg': 'Showroom already exist' });
         }
 
-        let newShowroom = new Showroom(req.body);
+        let newShowroom = Showroom(req.body);
         newShowroom.save().then((newShwrm) => {
             if (newShwrm) {
                 return res.status(201).json({ 'msg': 'Showroom Successfully Added' });
@@ -24,6 +24,7 @@ exports.Registration = (req, res) => {
         })
             .catch((err) => {
                 console.log("err")
+                console.log(err)
                 return res.status(401).json({ 'msg2': 'Showroom Registration Failed' })
             });
 
