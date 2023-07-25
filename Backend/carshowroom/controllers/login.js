@@ -29,11 +29,13 @@ exports.login = (req, res) => {
                 }
             })
             .catch((err) => {
+                console.log(err)
                 return res.status(400).json({ 'msg': "Showroom search error" });
             });
         }
     })
     .catch((err) => {
+        console.log(err)
         return res.status(400).json({ 'msg': "User search error" });
     });
 };

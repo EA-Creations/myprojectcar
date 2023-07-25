@@ -23,7 +23,7 @@ exports.Registration = (req,res) => {
                     return res.status(201).json({'msg': 'User Successfully Added'});
                 }})
                 .catch((err) => {
-                    console.log("err")
+                    console.log(err)
                      return res.status(401).json({'msg3': "User Registration failed"})
                 })
         }        
@@ -39,7 +39,7 @@ exports.getAllUsers =  (req, res) => {
         }
     })
     .catch((err) => {
-        console.log("err")
+        console.log(err)
         return res.status(401).json({ 'msg2': 'Fetching All User Details Failed' })
     });
 }
@@ -53,7 +53,7 @@ exports.getUser =  (req, res) => {
         }
     })
     .catch((err) => {
-        console.log("err")
+        console.log(err)
         return res.status(401).json({ 'msg2': 'Fetching User Details Failed' })
     });
 }

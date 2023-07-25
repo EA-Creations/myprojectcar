@@ -15,7 +15,7 @@ exports.addCar = (req, res) => {
             }
         })
             .catch((err) => {
-                console.log("err")
+                console.log(err)
                 return res.status(401).json({ 'msg2': 'Adding car failed' })
             });
 };
@@ -30,7 +30,7 @@ exports.getCarDetails = (req, res) => {
 
     })
     .catch((err) => {
-        console.log("err")
+        console.log(err)
         return res.status(401).json({ 'msg2': 'Showroom Registration Failed' })
     });
 }

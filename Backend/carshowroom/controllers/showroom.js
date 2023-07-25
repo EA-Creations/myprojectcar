@@ -23,7 +23,6 @@ exports.Registration = (req, res) => {
             }
         })
             .catch((err) => {
-                console.log("err")
                 console.log(err)
                 return res.status(401).json({ 'msg2': 'Showroom Registration Failed' })
             });
@@ -40,7 +39,7 @@ exports.getAllShowroom =  (req, res) => {
         }
     })
     .catch((err) => {
-        console.log("err")
+        console.log(err)
         return res.status(401).json({ 'msg2': 'Fetching All Showroom details failed' })
     });
 }
@@ -54,7 +53,7 @@ exports.getShowroom =  (req, res) => {
         }
     })
     .catch((err) => {
-        console.log("err")
+        console.log(err)
         return res.status(401).json({ 'msg2': 'Fetching Showroom details failed' })
     });
 }
