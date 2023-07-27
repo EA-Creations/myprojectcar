@@ -1,21 +1,108 @@
+import 'package:car_showroom/service/auth/auth.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 //import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
+  final bool? intro;
+  const LoginScreen({super.key, this.intro});
+
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  @override
+  void initState() {
+    checkAuthentication();
+    // TODO: implement initState
+    super.initState();
+  }
+
+  final storage = const FlutterSecureStorage();
+
+  Future<void> checkAuthentication() async {
+    try {
+      Map<String, String> allValues = await storage.readAll();
+      print(allValues);
+      if (allValues["token"] == null) {
+        print("no tok");
+        if (widget.intro != false) {
+          Navigator.of(context).pushNamedAndRemoveUntil(
+              '/intro', (Route<dynamic> route) => false);
+        }
+      } else if (allValues["UserType"] == "User") {
+        Navigator.of(context).pushNamedAndRemoveUntil(
+            '/userhome', (Route<dynamic> route) => false);
+        print("User push");
+      } else if (allValues["UserType"] == "Showroom") {
+        print("showroom push");
+        Navigator.of(context).pushNamedAndRemoveUntil(
+            '/showroomhome', (Route<dynamic> route) => false);
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
   final _formKey = GlobalKey<FormState>();
   String? _email, _password;
   bool obscureText1 = true;
+  showError(String content, String title) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(title),
+            content: Text(content),
+            actions: [
+              TextButton(
+                child: const Text("Ok"),
+                onPressed: () {
+                  // if (title == "Registration Successful") {
+                  //   Navigator.pushNamed(context, '/login');
+                  // } else {
+                  Navigator.of(context).pop();
+                  // }
+                },
+              )
+            ],
+          );
+        });
+  }
 
-  _SubmitLogin() {
+  _submitLogin() async {
     if (_formKey.currentState!.validate()) {
       print("Email: $_email Password: $_password");
-      //Navigator.pushNamed(context, '/customerHome');
-      print("Login Success");
+
+      var user = {"Email": _email, "Password": _password};
+
+      try {
+        final Response? response = await AuthService().loginUser(user);
+        // print(response!.data);
+
+        if (response!.data["result"]["UserType"] == "User") {
+          print("showroom");
+          // Navigator.pushNamed(context, '/userhome');
+          Navigator.pushNamedAndRemoveUntil(
+              context, '/userhome', (route) => false);
+        } else if (response.data["result"]["UserType"] == "Showroom") {
+          print("showroom");
+          // Navigator.pushNamed(context, '/showroomhome');
+          Navigator.pushNamedAndRemoveUntil(
+              context, '/showroomhome', (route) => false);
+        }
+      } on DioError catch (e) {
+        if (e.response != null) {
+          print(e.response!.data);
+
+          showError(e.response!.data["msg"], "Login Failed");
+        } else {
+          // Something happened in setting up or sending the request that triggered an Error
+          showError("Error occured,please try againlater", "Oops");
+        }
+      }
     } else {
       print("Login Failed");
     }
@@ -32,49 +119,20 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Scaffold(
           appBar: null,
           body: Padding(
-              padding: EdgeInsets.all(MediaQuery.of(context).size.height * .02),
+              padding: const EdgeInsets.all(15),
               child: ListView(
                 children: [
-                  Center(
-                    child: Container(
-                      margin: EdgeInsets.only(
-                          top: MediaQuery.of(context).size.height * .01,
-                          bottom: MediaQuery.of(context).size.height * .02),
-                      width: MediaQuery.of(context).size.height * .20,
-                      height: MediaQuery.of(context).size.height * .08,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
-                            spreadRadius: 2,
-                            blurRadius: 5,
-                            offset: Offset(0, 2),
-                          ),
-                        ],
-                        gradient: LinearGradient(
-                          colors: [
-                            Color.fromARGB(255, 0, 0, 0),
-                            Color.fromARGB(255, 0, 0, 0),
-                            Color.fromARGB(255, 0, 0, 0)
-                          ],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                        ),
-                      ),
-                      child: Center(
-                        child: Text(
-                          'Login',
-                          style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(255, 255, 255, 255),
-                          ),
-                        ),
+                  const Center(
+                    child: Text(
+                      'Login',
+                      style: TextStyle(
+                        fontSize: 32,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
                       ),
                     ),
                   ),
-                  Image(
+                  const Image(
                     image: AssetImage('assets/login.png'),
                   ),
                   Form(
@@ -82,13 +140,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: <Widget>[
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height *
-                                .02), //SizedBox for Add space between Text Boxes
                         TextFormField(
                           keyboardType: TextInputType.emailAddress,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             labelText: 'Email',
+                            // label: const Text("uuabc@gmail.com"),
                             prefixIcon: Icon(Icons.email),
                             border: OutlineInputBorder(),
                           ),
@@ -114,8 +170,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           obscureText: obscureText1,
                           decoration: InputDecoration(
                             labelText: 'Password',
-                            prefixIcon: Icon(Icons.lock),
-                            border: OutlineInputBorder(),
+                            prefixIcon: const Icon(Icons.lock),
+                            border: const OutlineInputBorder(),
                             suffixIcon: IconButton(
                               onPressed: () {
                                 setState(() {
@@ -131,10 +187,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           validator: (value) {
                             if (value!.isEmpty) {
                               return 'Please enter a password';
-                            } else if (!RegExp(
-                                    r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
-                                .hasMatch(value)) {
-                              return 'Password should have at least one uppercase letter, at least one lowercase letter at least one digit at least one special character and at least 8 characters.';
+                              // }
+                              // else if (!RegExp(
+                              //         r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
+                              //     .hasMatch(value)) {
+                              //   return 'Password should have at least one uppercase letter, at least one lowercase letter at least one digit at least one special character and at least 8 characters.';
                             } else {
                               setState(() {
                                 _password = value;
@@ -150,12 +207,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         ElevatedButton(
                           style: ButtonStyle(
                             minimumSize: MaterialStateProperty.all(
-                                Size(double.infinity, 50)),
+                                const Size(double.infinity, 50)),
                             padding: MaterialStateProperty.all(
-                                EdgeInsets.symmetric(vertical: 10)),
+                                const EdgeInsets.symmetric(vertical: 10)),
                           ),
-                          onPressed: _SubmitLogin,
-                          child: Text(
+                          onPressed: _submitLogin,
+                          child: const Text(
                             'Login',
                             style: TextStyle(fontSize: 23),
                           ),
@@ -165,11 +222,11 @@ class _LoginScreenState extends State<LoginScreen> {
                             height: MediaQuery.of(context).size.height *
                                 .02), //SizedBox for Add space between Text Boxes
                         Center(
-                          child: Row(
+                          child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(
-                                'You don\'t remember your password? ',
+                              const Text(
+                                'You don\'t remember your password?',
                                 style: TextStyle(
                                   fontSize: 15,
                                   color: Colors.black,
@@ -180,7 +237,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   Navigator.pushNamed(
                                       context, '/forgotpassword');
                                 },
-                                child: Text(
+                                child: const Text(
                                   'Reset Password',
                                   style: TextStyle(
                                       fontSize: 15,
@@ -195,10 +252,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             height: MediaQuery.of(context).size.height *
                                 .02), //SizedBox for Add space between Text Boxes
                         Center(
-                          child: Row(
+                          child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(
+                              const Text(
                                 'You don\'t have account yet? ',
                                 style: TextStyle(
                                   fontSize: 15,
@@ -209,10 +266,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                 onTap: () {
                                   Navigator.pushNamed(context, '/signup');
                                 },
-                                child: Text(
+                                child: const Text(
                                   'Sign Up',
                                   style: TextStyle(
-                                      fontSize: 15,
+                                      fontSize: 22,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.blue),
                                 ),

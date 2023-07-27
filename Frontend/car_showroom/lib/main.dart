@@ -1,10 +1,15 @@
 //Flutter packages imports
 
+import 'package:car_showroom/auth/signup.dart';
+import 'package:car_showroom/showroom/add_car.dart';
+import 'package:car_showroom/User/showrooms.dart';
 import 'package:flutter/material.dart';
-//Project dart file imports
-import 'package:car_showroom/common/intro_slider.dart';
-import 'package:car_showroom/common/login.dart';
-import 'package:car_showroom/common/signup.dart';
+import 'package:car_showroom/auth/login.dart';
+
+import 'User/home.dart';
+import 'common/intro_slider.dart';
+import 'showroom/home.dart';
+// import 'home.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,16 +24,25 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'AutoConnect',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSwatch().copyWith(
-          primary: Color.fromRGBO(0, 0, 0, 1),
-          secondary: Color.fromARGB(255, 192, 192, 192),        
-        )
-      ),
-      home: SignUpScreen(),
+          brightness: Brightness.light,
+          androidOverscrollIndicator: AndroidOverscrollIndicator.stretch,
+          scaffoldBackgroundColor: Colors.white70.withOpacity(.92),
+          fontFamily: "SofiaProRegular",
+          appBarTheme: const AppBarTheme(
+              foregroundColor: Colors.black,
+              // backgroundColor: Colors.black,
+              centerTitle: true,
+              color: Colors.white,
+              titleTextStyle:
+                  TextStyle(fontFamily: "SofiaProRegular", fontSize: 20))),
+      home: const LoginScreen(),
       routes: {
-        '/login': (context) => LoginScreen(),
-        '/signup': (context) => SignUpScreen(),
-       // '/forgotpassword': (context) => ForgotPasswordScreen(),
+        '/login': (context) => const LoginScreen(),
+        '/signup': (context) => const SignUpScreen(),
+        '/showroomhome': (context) => const HomeScreen(),
+        '/userhome': (context) => const UserHomeScreen(),
+        '/intro': (context) => const IntroScreen(),
+        // '/forgotpassword': (context) => ForgotPasswordScreen(),
       },
     );
   }

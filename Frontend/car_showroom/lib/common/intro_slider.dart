@@ -1,7 +1,11 @@
+import 'package:car_showroom/auth/login.dart';
+import 'package:car_showroom/common/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:intro_slider/intro_slider.dart';
 
 class IntroScreen extends StatefulWidget {
+  const IntroScreen({super.key});
+
   @override
   _IntroScreenState createState() => _IntroScreenState();
 }
@@ -40,6 +44,7 @@ class _IntroScreenState extends State<IntroScreen> {
   }
 
   void onDonePress() {
+    push(context, LoginScreen(intro: false,));
     print("End of slides");
   }
 
@@ -47,17 +52,17 @@ class _IntroScreenState extends State<IntroScreen> {
   Widget build(BuildContext context) {
     return Theme(
       data: Theme.of(context).copyWith(
-        colorScheme: ColorScheme.fromSwatch().copyWith(primary:Colors.white),
+        colorScheme: ColorScheme.fromSwatch().copyWith(primary: Colors.white),
       ),
       child: IntroSlider(
         key: UniqueKey(),
         listContentConfig: listContentConfig,
         onDonePress: onDonePress,
         indicatorConfig: const IndicatorConfig(
-        colorIndicator: Colors.grey,
-        typeIndicatorAnimation: TypeIndicatorAnimation.sliding,
-        colorActiveIndicator: Color.fromARGB(255, 255, 255, 255),
-      ),
+          colorIndicator: Colors.grey,
+          typeIndicatorAnimation: TypeIndicatorAnimation.sliding,
+          colorActiveIndicator: Color.fromARGB(255, 255, 255, 255),
+        ),
       ),
     );
   }
