@@ -3,13 +3,8 @@ var mongoose = require("mongoose");
 const {ObjectId} = mongoose.Schema;
 
 // Create model schema
-var CarBookingSchema = new mongoose.Schema({
+var ServiceSchema = new mongoose.Schema({
 
-    ShowroomId : {
-        type : ObjectId,
-        required : true,
-        ref : "Showrooms"
-    },
     CustomerId : {
         type : ObjectId,
         required : true,
@@ -20,7 +15,15 @@ var CarBookingSchema = new mongoose.Schema({
         required : true,
         ref : "CarDetails"
     },
-    BookingStatus : {
+    IssueDescription : {
+        type : String,
+        required : true
+    },
+    Place : {
+        type : String,
+        required : true
+    },
+    ServiceStatus : {
         type : Boolean,
         required : true,
         default : false
@@ -28,4 +31,4 @@ var CarBookingSchema = new mongoose.Schema({
 })
 
 // Export model schema
-module.exports = mongoose.model("CarBookings", CarBookingSchema);
+module.exports = mongoose.model("Services", ServiceSchema);

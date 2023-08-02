@@ -9,7 +9,9 @@ var CarBookingController = require("../controllers/carbooking");
 
 // Set routes for respective controller function
 routes.post('/bookCar', CarBookingController.bookCar)
-//routes.get('/getCar', CarBookingController.getCarDetails)
+routes.post('/getMyShowroom', CarBookingController.getMyShowroom)
+routes.post('/getMyCar', CarBookingController.getMyCar)
+
 
 // Export routes
 module.exports = routes;
