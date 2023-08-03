@@ -44,7 +44,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"Name\" : \"Abhi\",\r\n    \"Email\" : \"abhi@gmail.com\",\r\n    \"Phone\" : 9656293183,\r\n    \"Address\" : \"hhaa\",\r\n    \"City\" : \"gggs\",\r\n    \"District\" : \"shshhs\",\r\n    \"State\" : \"sdsd\",\r\n    \"Pincode\" : 686667,\r\n    \"Password\" : \"sasas\",\r\n    \"userType\" : \"Showroom\",\r\n    \"ShowroomName\" : \"Some\",\r\n    \"License\" : \"Someem\",\r\n    \"Verification\" : false\r\n}",
+							"raw": "{\r\n    \"Name\" : \"Abhi\",\r\n    \"Email\" : \"showrm3@gmail.com\",\r\n    \"Phone\" : 9656293187,\r\n    \"Address\" : \"hhaa\",\r\n    \"City\" : \"gggs\",\r\n    \"District\" : \"shshhs\",\r\n    \"State\" : \"sdsd\",\r\n    \"Pincode\" : 686667,\r\n    \"Password\" : \"sasas\",\r\n    \"userType\" : \"Showroom\",\r\n    \"ShowroomName\" : \"Some\",\r\n    \"License\" : \"Someem\",\r\n    \"Verification\" : false\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -112,7 +112,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"Showroom\" : \"64bf8bbb6b0545b38d1213c6\",\r\n    \"Carmodel\" : \"Toyota Corolla\",\r\n    \"Manufacturer\" : \"Toyota\",\r\n    \"Carspecs\" : \"Engine - 1.8L 4-cylinder, Tarnsmission-Automatic, Fuel Type - Petrol, Dimention - 4620 x 1776 x 1460 mm\",\r\n    \"Price\" : \"22,500 INR\",\r\n    \"Milleage\" : \"35 mpg\",\r\n    \"Features\" : \"Automatic climate control, Touchscreen infotainment system, Cruise control\",\r\n    \"Colors\" : \"Colors.blue, Colors.red, Colors.black\",\r\n    \"Availability\" : \"Available\",\r\n    \"Warranty\" : \"3 years or 36,000 miles\",\r\n    \"Loan\" : \"Available\",\r\n    \"CarImage\" : \"image\"\r\n}",
+							"raw": "{\r\n    \"Showroom\" : \"64c00c938d3890602ba1e0c7\",\r\n    \"Carmodel\" : \"Toyota Corolla\",\r\n    \"Manufacturer\" : \"Toyota\",\r\n    \"Carspecs\" : \"Engine - 1.8L 4-cylinder, Tarnsmission-Automatic, Fuel Type - Petrol, Dimention - 4620 x 1776 x 1460 mm\",\r\n    \"Price\" : \"22,500 INR\",\r\n    \"Milleage\" : \"35 mpg\",\r\n    \"Features\" : \"Automatic climate control, Touchscreen infotainment system, Cruise control\",\r\n    \"Colors\" : \"Colors.blue, Colors.red, Colors.black\",\r\n    \"Availability\" : \"Available\",\r\n    \"Warranty\" : \"3 years or 36,000 miles\",\r\n    \"Loan\" : \"Available\",\r\n    \"CarImage\" : \"image\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -312,8 +312,310 @@
 				{
 					"name": "AddBooking",
 					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ShowroomId\" : \"64c0af529f580e8191df4b91\",\r\n    \"CustomerId\" : \"64c0ae609f580e8191df4b87\",\r\n    \"CarId\" : \"64c0b0729f580e8191df4b95\",\r\n    \"BookingStatus\" : true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/bookCar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"bookCar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetMyShowroomUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"CustomerId\" : \"64c0ae609f580e8191df4b87\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/getMyShowroom",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"getMyShowroom"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetMyCar User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"CustomerId\" : \"64c0ae609f580e8191df4b87\",\r\n    \"ShowroomId\": \"64c0af529f580e8191df4b91\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/getMyCar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"getMyCar"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Services",
+			"item": [
+				{
+					"name": "New Service Request",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ShowroomId\" : \"64c00a513da49b4aa64d5657\",\r\n    \"CustomerId\" : \"64bf8b056b0545b38d1213c1\",\r\n    \"CarId\" : \"64bf8c516b0545b38d1213c8\",\r\n    \"IssueDescription\" : \"Engine fail\",\r\n    \"Place\" : \"Anchelpetty\",\r\n    \"ServiceStatus\" : false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/serviceRequest",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"serviceRequest"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getPendingShowroom",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ShowroomId\" : \"64c00a513da49b4aa64d5657\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/getServiceShowroom",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"getServiceShowroom"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAcceptedShowroom",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ShowroomId\" : \"64c00a513da49b4aa64d5657\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/getAcceptedShowroom",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"getAcceptedShowroom"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Service",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ServiceId\" : \"64cb8b77ec1c21ef16c2b4d4\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/UpdateService",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"UpdateService"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getServiceSingle Showroom",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ServiceId\" : \"64cb8b77ec1c21ef16c2b4d4\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/getServiceSingle",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"getServiceSingle"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAcceptedService",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"CustomerId\" : \"64bf8b056b0545b38d1213c1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/getPendingService",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"getPendingService"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Service User pending",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"CustomerId\" : \"64bf8b056b0545b38d1213c1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/getPendingService",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"getPendingService"
+							]
+						}
 					},
 					"response": []
 				}

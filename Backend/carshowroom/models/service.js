@@ -5,6 +5,11 @@ const {ObjectId} = mongoose.Schema;
 // Create model schema
 var ServiceSchema = new mongoose.Schema({
 
+    ShowroomId : {
+        type : ObjectId,
+        required : true,
+        ref : "Showrooms"
+    },
     CustomerId : {
         type : ObjectId,
         required : true,
