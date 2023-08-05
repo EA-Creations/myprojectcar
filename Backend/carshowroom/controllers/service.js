@@ -22,7 +22,7 @@ exports.ServiceRequest = (req, res) => {
 
 // Get service request Showroom Pending
 exports.getPendingShowroom = (req, res) => {
-    Service.find({ ShowroomId: req.body.ShowroomId, ServiceStatus: false}).then((result) => {
+    Service.find({ ShowroomId: req.body.ShowroomId, ServiceStatus: false}).populate(["CustomerId", "ShowroomId", "CarId"]).then((result) => {
 
         if (result) {
             return res.status(201).json({ 'msg': result });
@@ -37,7 +37,7 @@ exports.getPendingShowroom = (req, res) => {
 
 // Get service request Showroom Pending
 exports.getAcceptedShowroom = (req, res) => {
-    Service.find({ ShowroomId: req.body.ShowroomId, ServiceStatus: true}).then((result) => {
+    Service.find({ ShowroomId: req.body.ShowroomId, ServiceStatus: true}).populate(["CustomerId", "ShowroomId", "CarId"]).then((result) => {
 
         if (result) {
             return res.status(201).json({ 'msg': result });
@@ -52,7 +52,7 @@ exports.getAcceptedShowroom = (req, res) => {
 
 // Get a particular service request Showroom
 exports.getServiceSingle = (req, res) => {
-    Service.find({ _id: req.body.ServiceId}).then((result) => {
+    Service.find({ _id: req.body.ServiceId}).populate(["CustomerId", "ShowroomId", "CarId"]).then((result) => {
 
         if (result) {
             return res.status(201).json({ 'msg': result });
@@ -82,7 +82,7 @@ exports.UpdateService = (req, res) => {
 
 // Get my service request User pending
 exports.getPendingService = (req, res) => {
-    Service.find({ CustomerId: req.body.CustomerId, ServiceStatus: false}).then((result) => {
+    Service.find({ CustomerId: req.body.CustomerId, ServiceStatus: false}).populate(["CustomerId", "ShowroomId", "CarId"]).then((result) => {
 
         if (result) {
             return res.status(201).json({ 'msg': result });
@@ -97,7 +97,7 @@ exports.getPendingService = (req, res) => {
 
 // Get my service request User Accepted
 exports.getAcceptedService = (req, res) => {
-    Service.find({ CustomerId: req.body.CustomerId, ServiceStatus: true}).then((result) => {
+    Service.find({ CustomerId: req.body.CustomerId, ServiceStatus: true}).populate(["CustomerId", "ShowroomId", "CarId"]).then((result) => {
 
         if (result) {
             return res.status(201).json({ 'msg': result });

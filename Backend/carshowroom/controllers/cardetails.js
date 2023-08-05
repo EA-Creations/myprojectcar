@@ -22,7 +22,7 @@ exports.addCar = (req, res) => {
 
 // Get Car Details function
 exports.getCarDetails = (req, res) => {
-    CarDetails.find({ Showroom: req.body.Showroom }).then((result) => {
+    CarDetails.find({ Showroom: req.body.Showroom }).populate("Showroom").then((result) => {
 
         if (result) {
             return res.status(201).json({ 'msg': result });
@@ -31,6 +31,6 @@ exports.getCarDetails = (req, res) => {
     })
     .catch((err) => {
         console.log(err)
-        return res.status(401).json({ 'msg2': 'Showroom Registration Failed' })
+        return res.status(401).json({ 'msg2': 'Get Car details Failed' })
     });
 }

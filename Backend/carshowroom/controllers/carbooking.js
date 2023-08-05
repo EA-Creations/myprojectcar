@@ -22,7 +22,7 @@ exports.bookCar = (req, res) => {
 
 //Get My Showroom user
 exports.getMyShowroom = (req, res) => {
-    CarBooking.find({ CustomerId: req.body.CustomerId, BookingStatus: true }).then((result) => {
+    CarBooking.find({ CustomerId: req.body.CustomerId, BookingStatus: true }).populate(["CustomerId", "ShowroomId", "CarId"]).then((result) => {
 
         if (result) {
             return res.status(201).json({ 'msg': result });
@@ -37,7 +37,7 @@ exports.getMyShowroom = (req, res) => {
 
 //Get My Car user
 exports.getMyCar = (req, res) => {
-    CarBooking.find({ CustomerId: req.body.CustomerId, ShowroomId: req.body.ShowroomId }).then((result) => {
+    CarBooking.find({ CustomerId: req.body.CustomerId, ShowroomId: req.body.ShowroomId }).populate(["CustomerId", "ShowroomId", "CarId"]).then((result) => {
 
         if (result) {
             return res.status(201).json({ 'msg': result });
