@@ -22,7 +22,7 @@ exports.AddReview = (req, res) => {
 
 // Get Showroom Review For a Particular Showroom
 exports.getReviewOneShowroom = (req, res) => {
-    ShowroomReviews.find({ ShowroomId: req.body.ShowroomId}).then((result) => {
+    ShowroomReviews.find({ ShowroomId: req.body.ShowroomId}).populate(["CustomerId","ShowroomId"]).then((result) => {
 
         if (result) {
             return res.status(201).json({ 'msg': result });

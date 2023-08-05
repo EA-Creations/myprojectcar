@@ -22,7 +22,7 @@ exports.AddReview = (req, res) => {
 
 // Get car Review For a Particular Car
 exports.getReviewOneCar = (req, res) => {
-    CarReviews.find({ CarId: req.body.CarId}).then((result) => {
+    CarReviews.find({ CarId: req.body.CarId}).populate("CustomerId").then((result) => {
 
         if (result) {
             return res.status(201).json({ 'msg': result });
