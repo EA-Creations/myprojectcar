@@ -26,7 +26,18 @@ exports.Registration = (req,res) => {
                     console.log(err)
                      return res.status(401).json({'msg3': "User Registration failed"})
                 })
-        }        
+        }
+        
+        if(req.body.userType == "Admin") {
+            newUser.save().then((newUsr) => {
+                if (req.body.userType == "Admin") {
+                    return res.status(201).json({'msg': 'Admin Successfully Added'});
+                }})
+                .catch((err) => {
+                    console.log(err)
+                     return res.status(401).json({'msg3': "Admin Registration failed"})
+                })
+        }  
     })
 };
 

@@ -11,6 +11,9 @@ var ShowroomContoller = require("../controllers/showroom");
 routes.post('/showroomreg', ShowroomContoller.Registration)
 routes.get('/getAllShowroom', ShowroomContoller.getAllShowroom)
 routes.get('/getShowroom', ShowroomContoller.getShowroom)
+routes.get('/getPending', ShowroomContoller.getPending)
+routes.get('/getAccepted', ShowroomContoller.getAccepted) 
+routes.post('/UpdateShowroom', ShowroomContoller.UpdateShowroom) 
 
 // Export routes
 module.exports = routes;

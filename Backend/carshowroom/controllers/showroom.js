@@ -30,7 +30,7 @@ exports.Registration = (req, res) => {
     })
 };
 
-// Export Showroom details function
+// Export All Showroom details function
 exports.getAllShowroom =  (req, res) => {
     console.log(req.body)
     Showroom.find().then((result) => {
@@ -55,5 +55,48 @@ exports.getShowroom =  (req, res) => {
     .catch((err) => {
         console.log(err)
         return res.status(401).json({ 'msg2': 'Fetching Showroom details failed' })
+    });
+}
+
+// Export Pending Showroom details function
+exports.getPending =  (req, res) => {
+    console.log(req.body)
+    Showroom.find({Verification: false}).then((result) => {
+        if(result) {
+            return res.status(201).json({ 'msg': result });
+        }
+    })
+    .catch((err) => {
+        console.log(err)
+        return res.status(401).json({ 'msg2': 'Fetching Pending Showroom details failed' })
+    });
+}
+
+// Export Accepted Showroom details function
+exports.getAccepted =  (req, res) => {
+    console.log(req.body)
+    Showroom.find({Verification: true}).then((result) => {
+        if(result) {
+            return res.status(201).json({ 'msg': result });
+        }
+    })
+    .catch((err) => {
+        console.log(err)
+        return res.status(401).json({ 'msg2': 'Fetching Accepted Showroom details failed' })
+    });
+}
+
+// Update Showroom Verification status
+exports.UpdateShowroom = (req, res) => {
+    Showroom.updateOne({ _id: req.body.ShowroomId}, { $set: {Verification: true}}).then((result) => {
+
+        if (result) {
+            return res.status(201).json({ 'msg': 'Showroom Verification Successful' });
+        }
+
+    })
+    .catch((err) => {
+        console.log(err)
+        return res.status(401).json({ 'msg2': 'Accepting Showroom Verification failed Failed' })
     });
 }

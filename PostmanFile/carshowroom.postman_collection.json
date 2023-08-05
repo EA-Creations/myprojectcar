@@ -15,7 +15,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"Name\" : \"Abhi\",\r\n    \"Email\" : \"abhi@gmail.com\",\r\n    \"Phone\" : 9656293183,\r\n    \"Address\" : \"hhaa\",\r\n    \"City\" : \"gggs\",\r\n    \"District\" : \"shshhs\",\r\n    \"State\" : \"sdsd\",\r\n    \"Pincode\" : 686667,\r\n    \"Password\" : \"sasas\",\r\n    \"userType\" : \"User\"\r\n}",
+							"raw": "{\r\n    \"Name\" : \"Admin\",\r\n    \"Email\" : \"admin@gmail.com\",\r\n    \"Phone\" : 9656293188,\r\n    \"Address\" : \"Puthenkandathil\",\r\n    \"City\" : \"Muvattupuzha\",\r\n    \"District\" : \"Ernakulam\",\r\n    \"State\" : \"Kerala\",\r\n    \"Pincode\" : 686669,\r\n    \"Password\" : \"admin\",\r\n    \"userType\" : \"Admin\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -234,6 +234,99 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "getAccepted",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/getAccepted",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"getAccepted"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getPending",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/getPending",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"getPending"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateShowroom",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ShowroomId\" : \"64c00a513da49b4aa64d5657\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/UpdateShowroom",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"UpdateShowroom"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -440,7 +533,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"ShowroomId\" : \"64c00a513da49b4aa64d5657\"\r\n}",
+							"raw": "{\r\n    \"CustomerId\" : \"64bf8b056b0545b38d1213c1\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -448,7 +541,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/getServiceShowroom",
+							"raw": "http://localhost:3000/api/getPendingShowroom",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -456,7 +549,7 @@
 							"port": "3000",
 							"path": [
 								"api",
-								"getServiceShowroom"
+								"getPendingShowroom"
 							]
 						}
 					},
@@ -565,7 +658,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"CustomerId\" : \"64bf8b056b0545b38d1213c1\"\r\n}",
+							"raw": "{\r\n    \"ServiceId\" : \"64cb8b77ec1c21ef16c2b4d4\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -573,7 +666,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/getPendingService",
+							"raw": "http://localhost:3000/api/getAcceptedService",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -581,7 +674,7 @@
 							"port": "3000",
 							"path": [
 								"api",
-								"getPendingService"
+								"getAcceptedService"
 							]
 						}
 					},
@@ -614,6 +707,138 @@
 							"path": [
 								"api",
 								"getPendingService"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Car Reviews",
+			"item": [
+				{
+					"name": "Add Car Reviews",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n     \"CustomerId\" : \"64bf8b056b0545b38d1213c1\",\r\n     \"CarId\" : \"64c00d728d3890602ba1e0d4\",\r\n     \"Feedbacks\" : \"Performance is low\",\r\n     \"Rating\" : 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/AddReview",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"AddReview"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getReviewOneCar",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n     \"CarId\" : \"64bf8c516b0545b38d1213c8\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/getReviewOneCar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"getReviewOneCar"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Showroom Review",
+			"item": [
+				{
+					"name": "AddReviewShowroom",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n     \"CustomerId\" : \"64bf8b056b0545b38d1213c1\",\r\n     \"ShowroomId\" : \"64c00a513da49b4aa64d5657\",\r\n     \"Feedbacks\" : \"Very good showroom\",\r\n     \"Rating\" : 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/AddReviewShowroom",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"AddReviewShowroom"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getReviewOneShowroom",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n     \"ShowroomId\" : \"64c00a513da49b4aa64d5657\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/getReviewOneShowroom",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"getReviewOneShowroom"
 							]
 						}
 					},
