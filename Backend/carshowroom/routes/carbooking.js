@@ -13,6 +13,7 @@ routes.post('/getMyShowroom', CarBookingController.getMyShowroom)
 routes.post('/getMyCar', CarBookingController.getMyCar)
 routes.get('/getPendingBookings', CarBookingController.getPendingBookings)
 routes.post('/UpdateBooking', CarBookingController.UpdateBooking)
+routes.get('/getAcceptedBookings', CarBookingController.getAcceptedBookings)
 
 // Export routes
 module.exports = routes;

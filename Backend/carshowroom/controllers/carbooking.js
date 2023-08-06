@@ -79,3 +79,18 @@ exports.UpdateBooking = (req, res) => {
         return res.status(401).json({ 'msg2': 'Accepting Booking Failed' })
     });
 }
+
+// Get Accepted car bookings - My Customers
+exports.getAcceptedBookings = (req, res) => {
+    CarBooking.find({ ShowroomId: req.body.ShowroomId, BookingStatus: true }).populate([{path:"CustomerId", select: "Name Phone Email"}, {path:"CarId", select: "Carmodel Manufacturer Price Loan CarImage"}]).then((result) => {
+
+        if (result) {
+            return res.status(201).json({ 'msg': result });
+        }
+
+    })
+    .catch((err) => {
+        console.log(err)
+        return res.status(401).json({ 'msg2': 'Fetching Accepted Booking Details Failed' })
+    });
+}
