@@ -22,7 +22,7 @@ exports.addCar = (req, res) => {
 
 // Get Car Details function
 exports.getCarDetails = (req, res) => {
-    CarDetails.find({ Showroom: req.body.Showroom }).populate("Showroom").then((result) => {
+    CarDetails.find({ Showroom: req.body.Showroom }).populate({path:"Showroom", select: "Name Email Phone ShowroomName Address City District"}).then((result) => {
 
         if (result) {
             return res.status(201).json({ 'msg': result });

@@ -44,7 +44,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"Name\" : \"Abhi\",\r\n    \"Email\" : \"showrm3@gmail.com\",\r\n    \"Phone\" : 9656293187,\r\n    \"Address\" : \"hhaa\",\r\n    \"City\" : \"gggs\",\r\n    \"District\" : \"shshhs\",\r\n    \"State\" : \"sdsd\",\r\n    \"Pincode\" : 686667,\r\n    \"Password\" : \"sasas\",\r\n    \"userType\" : \"Showroom\",\r\n    \"ShowroomName\" : \"Some\",\r\n    \"License\" : \"Someem\",\r\n    \"Verification\" : false\r\n}",
+							"raw": "{\r\n    \"Name\" : \"Abhi5\",\r\n    \"Email\" : \"showrm8@gmail.com\",\r\n    \"Phone\" : 9656293199,\r\n    \"Address\" : \"Kumaranalloor\",\r\n    \"City\" : \"Kizhakkambalam\",\r\n    \"District\" : \"Ernakulam\",\r\n    \"State\" : \"Kerala\",\r\n    \"Pincode\" : 686687,\r\n    \"Password\" : \"sasas\",\r\n    \"userType\" : \"Showroom\",\r\n    \"ShowroomName\" : \"Car Hub\",\r\n    \"License\" : \"Someem\",\r\n    \"Verification\" : false\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -198,6 +198,38 @@
 							"path": [
 								"api",
 								"getAllShowroom"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllShowroomAdmin",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/getAllShowroomAdmin",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"getAllShowroomAdmin"
 							]
 						}
 					},
@@ -488,6 +520,67 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "getPendingBookings",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ShowroomId\": \"64c00c938d3890602ba1e0c7\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/getPendingBookings",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"getPendingBookings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateBooking",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"BookingId\": \"64ca2083c4fa6db9250b72dc\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/UpdateBooking",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"UpdateBooking"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -533,7 +626,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"CustomerId\" : \"64bf8b056b0545b38d1213c1\"\r\n}",
+							"raw": "{\r\n    \"ShowroomId\" : \"64c00a513da49b4aa64d5657\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -756,7 +849,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n     \"CarId\" : \"64bf8c516b0545b38d1213c8\"\r\n}",
+							"raw": "{\r\n     \"CarId\" : \"64c00d728d3890602ba1e0d4\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

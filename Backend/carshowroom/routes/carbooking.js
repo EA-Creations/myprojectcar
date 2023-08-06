@@ -11,7 +11,8 @@ var CarBookingController = require("../controllers/carbooking");
 routes.post('/bookCar', CarBookingController.bookCar)
 routes.post('/getMyShowroom', CarBookingController.getMyShowroom)
 routes.post('/getMyCar', CarBookingController.getMyCar)
-
+routes.get('/getPendingBookings', CarBookingController.getPendingBookings)
+routes.post('/UpdateBooking', CarBookingController.UpdateBooking)
 
 // Export routes
 module.exports = routes;

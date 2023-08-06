@@ -10,7 +10,7 @@ const { body } = require("express-validator");
 // Export Registartion of Showroom function
 exports.Registration = (req, res) => {
     console.log(req.body)
-    Showroom.findOne({ $or: [{ Email: req.body.Email }, { Phone: req.body.Phone }] }).then((result) => {
+    Showroom.findOne({ $or: [{ Email: req.body.Email }, { Phone: req.body.Phone }] }).select("Email Phone").then((result) => {
 
         if (result) {
             return res.status(404).json({ 'msg': 'Showroom already exist' });
@@ -33,7 +33,7 @@ exports.Registration = (req, res) => {
 // Export All Showroom details function
 exports.getAllShowroom =  (req, res) => {
     console.log(req.body)
-    Showroom.find().then((result) => {
+    Showroom.find().select("-License -Password").then((result) => {
         if(result) {
             return res.status(201).json({ 'msg': result });
         }
@@ -47,7 +47,7 @@ exports.getAllShowroom =  (req, res) => {
 // Export a specific Showroom details function
 exports.getShowroom =  (req, res) => {
     console.log(req.body)
-    Showroom.find({_id: req.body.ShowroomId}).then((result) => {
+    Showroom.find({_id: req.body.ShowroomId}).select("-License -Password").then((result) => {
         if(result) {
             return res.status(201).json({ 'msg': result });
         }
@@ -61,7 +61,7 @@ exports.getShowroom =  (req, res) => {
 // Export Pending Showroom details function
 exports.getPending =  (req, res) => {
     console.log(req.body)
-    Showroom.find({Verification: false}).then((result) => {
+    Showroom.find({Verification: false}).select("-License -Password").then((result) => {
         if(result) {
             return res.status(201).json({ 'msg': result });
         }
@@ -75,7 +75,7 @@ exports.getPending =  (req, res) => {
 // Export Accepted Showroom details function
 exports.getAccepted =  (req, res) => {
     console.log(req.body)
-    Showroom.find({Verification: true}).then((result) => {
+    Showroom.find({Verification: true}).select("-License -Password").then((result) => {
         if(result) {
             return res.status(201).json({ 'msg': result });
         }
@@ -98,5 +98,19 @@ exports.UpdateShowroom = (req, res) => {
     .catch((err) => {
         console.log(err)
         return res.status(401).json({ 'msg2': 'Accepting Showroom Verification failed Failed' })
+    });
+}
+
+// Export All Showroom details function for Admin
+exports.getAllShowroomAdmin =  (req, res) => {
+    console.log(req.body)
+    Showroom.find().then((result) => {
+        if(result) {
+            return res.status(201).json({ 'msg': result });
+        }
+    })
+    .catch((err) => {
+        console.log(err)
+        return res.status(401).json({ 'msg2': 'Fetching All Showroom details failed' })
     });
 }
