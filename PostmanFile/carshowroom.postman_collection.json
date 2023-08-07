@@ -245,7 +245,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"ShowroomId\" : \"64bcd08f925d4745247b0065\"\r\n}",
+							"raw": "{\r\n    \"ShowroomId\" : \"64c00a513da49b4aa64d5657\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -548,6 +548,38 @@
 							"path": [
 								"api",
 								"getPendingBookings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAcceptedBookings",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ShowroomId\": \"64c00a513da49b4aa64d5657\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/getAcceptedBookings",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"getAcceptedBookings"
 							]
 						}
 					},
@@ -932,6 +964,197 @@
 							"path": [
 								"api",
 								"getReviewOneShowroom"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Test Drives",
+			"item": [
+				{
+					"name": "AddTestDrive",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ShowroomId\" : \"64c0af529f580e8191df4b91\",\r\n    \"CustomerId\" : \"64c0ae609f580e8191df4b87\",\r\n    \"CarId\" : \"64c0b0729f580e8191df4b95\",\r\n    \"Date\" : \"07-08-2023\",\r\n    \"TestDriveStatus\" : false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/AddTestDrive",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"AddTestDrive"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUserTestDrivesPending",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"CustomerId\" : \"64c0ae609f580e8191df4b87\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/getUserTestDrivesPending",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"getUserTestDrivesPending"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUserTestDrivesAccepted",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"CustomerId\" : \"64c0ae609f580e8191df4b87\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/getUserTestDrivesAccepted",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"getUserTestDrivesAccepted"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ShowroomPendingTestDrives Copy",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ShowroomId\" : \"64c0af529f580e8191df4b91\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/ShowroomPendingTestDrives",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"ShowroomPendingTestDrives"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ShowroomAcceptedTestDrives",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ShowroomId\" : \"64c0af529f580e8191df4b91\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/ShowroomAcceptedTestDrives",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"ShowroomAcceptedTestDrives"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateTestDrive",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"TestDriveId\" : \"64d0b7ffee66c372138c09a3\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/UpdateTestDrive",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"UpdateTestDrive"
 							]
 						}
 					},

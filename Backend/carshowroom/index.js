@@ -21,6 +21,7 @@ var carbookingrouter = require('./routes/carbooking')
 var servicerouter = require('./routes/service')
 var carreviewrouter = require('./routes/carreviews')
 var showroomreviewrouter = require('./routes/showroomreview')
+var testdriverouter = require('./routes/testdrives')
 
 // Connect to Database -MongoDB
 mongoose.set('strictQuery', true);
@@ -47,6 +48,7 @@ app.use('/api', carbookingrouter)
 app.use('/api', servicerouter)
 app.use('/api', carreviewrouter)
 app.use('/api', showroomreviewrouter)
+app.use('/api', testdriverouter)
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
