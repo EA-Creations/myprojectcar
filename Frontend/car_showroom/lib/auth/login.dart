@@ -1,7 +1,12 @@
+// ignore_for_file: avoid_print
+
 import 'package:car_showroom/service/auth/auth.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
+import '../common/utils.dart';
+import '../showroom/not_verified.dart';
 //import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -37,9 +42,13 @@ class _LoginScreenState extends State<LoginScreen> {
             '/userhome', (Route<dynamic> route) => false);
         print("User push");
       } else if (allValues["UserType"] == "Showroom") {
-        print("showroom push");
+        print("showroom Verification true");
         Navigator.of(context).pushNamedAndRemoveUntil(
             '/showroomhome', (Route<dynamic> route) => false);
+      } else if (allValues["UserType"] == "Admin") {
+        print("Admin");
+        Navigator.of(context).pushNamedAndRemoveUntil(
+            '/adminHomeScreen', (Route<dynamic> route) => false);
       }
     } catch (e) {
       print(e);
@@ -80,18 +89,29 @@ class _LoginScreenState extends State<LoginScreen> {
 
       try {
         final Response? response = await AuthService().loginUser(user);
-        // print(response!.data);
 
         if (response!.data["result"]["UserType"] == "User") {
-          print("showroom");
+          print("user");
           // Navigator.pushNamed(context, '/userhome');
           Navigator.pushNamedAndRemoveUntil(
               context, '/userhome', (route) => false);
         } else if (response.data["result"]["UserType"] == "Showroom") {
           print("showroom");
+          if (response.data["result"]["Verification"] == true) {
+            print("showroom Verification true");
+            Navigator.of(context).pushNamedAndRemoveUntil(
+                '/showroomhome', (Route<dynamic> route) => false);
+          } else {
+            print("showroom Verification false");
+            // print(response.data["result"]["Verification"]);
+            storage.deleteAll();
+            push(context, const NotVerified());
+          }
+        } else if (response.data["result"]["UserType"] == "Admin") {
+          print("admin");
           // Navigator.pushNamed(context, '/showroomhome');
           Navigator.pushNamedAndRemoveUntil(
-              context, '/showroomhome', (route) => false);
+              context, '/adminHomeScreen', (route) => false);
         }
       } on DioError catch (e) {
         if (e.response != null) {
@@ -221,33 +241,33 @@ class _LoginScreenState extends State<LoginScreen> {
                         SizedBox(
                             height: MediaQuery.of(context).size.height *
                                 .02), //SizedBox for Add space between Text Boxes
-                        Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Text(
-                                'You don\'t remember your password?',
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.pushNamed(
-                                      context, '/forgotpassword');
-                                },
-                                child: const Text(
-                                  'Reset Password',
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.blue),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+                        // Center(
+                        //   child: Column(
+                        //     mainAxisAlignment: MainAxisAlignment.center,
+                        //     children: [
+                        //       const Text(
+                        //         'You don\'t remember your password?',
+                        //         style: TextStyle(
+                        //           fontSize: 15,
+                        //           color: Colors.black,
+                        //         ),
+                        //       ),
+                        //       GestureDetector(
+                        //         onTap: () {
+                        //           Navigator.pushNamed(
+                        //               context, '/forgotpassword');
+                        //         },
+                        //         child: const Text(
+                        //           'Reset Password',
+                        //           style: TextStyle(
+                        //               fontSize: 15,
+                        //               fontWeight: FontWeight.bold,
+                        //               color: Colors.blue),
+                        //         ),
+                        //       ),
+                        //     ],
+                        //   ),
+                        // ),
                         SizedBox(
                             height: MediaQuery.of(context).size.height *
                                 .02), //SizedBox for Add space between Text Boxes

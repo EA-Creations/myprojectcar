@@ -3,46 +3,51 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import '../common/urls.dart';
-import '../model/booking_model.dart';
 
-class MyCustomers extends StatefulWidget {
-  const MyCustomers({super.key});
+import '../../common/urls.dart';
+import '../model/verify_test_drivr.dart';
+
+class VerifyTestDrive extends StatefulWidget {
+  const VerifyTestDrive({
+    Key? key,
+  }) : super(key: key);
   @override
-  State<MyCustomers> createState() => _MyCustomersState();
+  State<VerifyTestDrive> createState() => _CarListScreenState();
 }
 
-class _MyCustomersState extends State<MyCustomers> {
+class _CarListScreenState extends State<VerifyTestDrive> {
   final dio = Dio();
-  BookingModel? data;
-
-  // void updateMyCustomers(String id) async {
-  //   final response =
-  //       await dio.post(Urls.getAcceptedBookings, data: {"MyCustomersId": id});
-
-  //   if (response.statusCode == 201) {
-  //     setState(() {});
-
-  //     getMyCustomerss();
-  //   } else {
-  //     throw Exception('Failed to load');
-  //   }
-  // }
+  VerifyTestDriveModel? data;
 
   final storage = const FlutterSecureStorage();
-  void getMyCustomerss() async {
+
+  void getTestDrive() async {
     Map<String, String> allValues = await storage.readAll();
 
     String? userid = allValues["id"];
     final response =
-        await dio.get(Urls.getAcceptedBookings, data: {"ShowroomId": userid});
-    print(userid);
+        await dio.get(Urls.showroomTestDrives, data: {"ShowroomId": userid});
+
     if (response.statusCode == 201) {
+      // print(response.data);
       setState(() {});
-      data = BookingModel.fromJson(response.data);
+      data = VerifyTestDriveModel.fromJson(response.data);
+    } else {
+      throw Exception('Failed to load');
+    }
+  }
+
+  void acceptTest(String id) async {
+    final response =
+        await dio.post(Urls.updateTestDrive, data: {"TestDriveId": id});
+
+    if (response.statusCode == 201) {
+      print(response.data);
+
+      getTestDrive();
+      setState(() {});
     } else {
       throw Exception('Failed to load');
     }
@@ -50,7 +55,7 @@ class _MyCustomersState extends State<MyCustomers> {
 
   @override
   void initState() {
-    getMyCustomerss();
+    getTestDrive();
     // TODO: implement initState
     super.initState();
   }
@@ -61,7 +66,7 @@ class _MyCustomersState extends State<MyCustomers> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text(
-            "My Customers",
+            "Verify Test Drive",
             style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
           ),
         ),
@@ -82,7 +87,7 @@ class _MyCustomersState extends State<MyCustomers> {
                         height: 500,
                         child: Center(
                             child: Text(
-                          "No MyCustomerss Available",
+                          "No Test Drive Requests",
                           textScaleFactor: 1.3,
                         )))
                     : Column(
@@ -100,9 +105,9 @@ class _MyCustomersState extends State<MyCustomers> {
                                       onTap: () {
                                         // push(
                                         //     context,
-                                        //     CarListScreen(
-                                        //         showroomid:
-                                        //             data!.msg![index].sId!));
+                                        //     CarDetailsScrren(
+                                        //         showroomid: widget.showroomid,
+                                        //         carData: data!.msg[index]));
                                       },
                                       child: Card(
                                         //  color: Colors.white,
@@ -165,63 +170,76 @@ class _MyCustomersState extends State<MyCustomers> {
                                                           children: [
                                                             const FaIcon(
                                                               FontAwesomeIcons
-                                                                  .person,
+                                                                  .building,
                                                               size: 15,
                                                             ),
                                                             Text(
-                                                                " Customer Name : ${data!.msg![index].customerId!.name}",
+                                                                " Customer : ${data!.msg![index].customerId!.name}",
                                                                 // textAlign: TextAlign.center,
 
                                                                 softWrap: true,
-                                                                style:
-                                                                    const TextStyle(
-                                                                  overflow:
-                                                                      TextOverflow
-                                                                          .ellipsis,
-                                                                  // fontWeight: FontWeight.bold,
-                                                                  // fontSize: 11,
-                                                                )),
+                                                                style: const TextStyle(
+                                                                    // fontWeight: FontWeight.bold,
+                                                                    // fontSize: 13,
+                                                                    )),
                                                           ],
                                                         ),
                                                         const SizedBox(
                                                           height: 8,
                                                         ),
                                                         Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .start,
                                                           children: [
-                                                            const Icon(
-                                                              Icons.phone,
-                                                              size: 19,
+                                                            const FaIcon(
+                                                              FontAwesomeIcons
+                                                                  .calendar,
+                                                              size: 15,
                                                             ),
                                                             Text(
-                                                                " Phone : : ${data!.msg![index].customerId!.phone}",
+                                                                " Date : ${data!.msg![index].date}",
+                                                                // textAlign: TextAlign.center,
+
                                                                 softWrap: true,
                                                                 style: const TextStyle(
-                                                                    fontSize:
-                                                                        14,
-                                                                    overflow:
-                                                                        TextOverflow
-                                                                            .ellipsis)),
+                                                                    // fontWeight: FontWeight.bold,
+                                                                    // fontSize: 13,
+                                                                    )),
                                                           ],
                                                         ),
+                                                        // const SizedBox(
+                                                        //   height: 8,
+                                                        // ),
                                                         Row(
                                                           mainAxisAlignment:
                                                               MainAxisAlignment
-                                                                  .center,
+                                                                  .start,
                                                           children: [
+                                                            const FaIcon(
+                                                              FontAwesomeIcons
+                                                                  .check,
+                                                              size: 15,
+                                                            ),
                                                             const Text(
-                                                                "Booking Status"),
+                                                                " Accept Test Drive :  ",
+                                                                // textAlign: TextAlign.center,
+
+                                                                softWrap: true,
+                                                                style: TextStyle(
+                                                                    // fontWeight: FontWeight.bold,
+                                                                    // fontSize: 13,
+                                                                    )),
                                                             Switch(
                                                               onChanged:
                                                                   (value) async {
-                                                                // updateMyCustomers(
-                                                                //     data!
-                                                                //         .msg![
-                                                                //             index]
-                                                                //         .sId!);
+                                                                acceptTest(data!
+                                                                    .msg![index]
+                                                                    .sId!);
                                                               },
                                                               value: data!
                                                                   .msg![index]
-                                                                  .bookingStatus!,
+                                                                  .testDriveStatus!,
                                                               activeColor:
                                                                   Colors.green,
                                                               activeTrackColor:
@@ -234,58 +252,55 @@ class _MyCustomersState extends State<MyCustomers> {
                                                             ),
                                                           ],
                                                         ),
+                                                        // const SizedBox(
+                                                        //   height: 8,
+                                                        // ),
                                                       ],
                                                     ),
-                                                    const Spacer(),
-                                                    // Container(
-                                                    //   child: Row(
-                                                    //     children: [
-                                                    //       Column(
-                                                    //         crossAxisAlignment:
-                                                    //             CrossAxisAlignment
-                                                    //                 .start,
-                                                    //         children: [
-                                                    //           Row(
-                                                    //             children: [
-                                                    //               const Icon(
-                                                    //                 Icons.phone,
-                                                    //                 size: 18,
-                                                    //               ),
-                                                    //               Text(
-                                                    //                   " Contact no : ${data!.msg![index].Phone}",
-                                                    //                   softWrap:
-                                                    //                       true,
-                                                    //                   style: const TextStyle(
-                                                    //                       fontSize:
-                                                    //                           12,
-                                                    //                       overflow:
-                                                    //                           TextOverflow.ellipsis)),
-                                                    //             ],
-                                                    //           ),
-                                                    //           const SizedBox(
-                                                    //             height: 8,
-                                                    //           ),
-                                                    //           Row(
-                                                    //             children: [
-                                                    //               const Icon(
-                                                    //                 Icons.email,
-                                                    //                 size: 18,
-                                                    //               ),
-                                                    //               Text(
-                                                    //                   " Email : ${data!.msg![index].Email}",
-                                                    //                   softWrap:
-                                                    //                       true,
-                                                    //                   style: const TextStyle(
-                                                    //                       fontSize:
-                                                    //                           11,
-                                                    //                       overflow:
-                                                    //                           TextOverflow.clip)),
-                                                    //             ],
-                                                    //           ),
-                                                    //         ],
-                                                    //       ),
+                                                    // const Spacer(),
+                                                    // const Row(
+                                                    //   children: [
+                                                    //     Column(
+                                                    //       crossAxisAlignment:
+                                                    //           CrossAxisAlignment
+                                                    //               .start,
+                                                    //       children: [
+                                                    //         Row(
+                                                    //           children: [
+                                                    //             Icon(
+                                                    //               Icons
+                                                    //                   .precision_manufacturing,
+                                                    //               size: 18,
+                                                    //             ),
+                                                    //             Text(
+                                                    //                 " Manufacturer : {data!.msg[index].manufacturer}",
+                                                    //                 softWrap:
+                                                    //                     true,
+                                                    //                 style:
+                                                    //                     TextStyle()),
+                                                    //           ],
+                                                    //         ),
+                                                    //         SizedBox(
+                                                    //           height: 8,
+                                                    //         ),
+                                                    //         Row(
+                                                    //           children: [
+                                                    //             Icon(
+                                                    //               Icons
+                                                    //                   .help_outline,
+                                                    //               size: 18,
+                                                    //             ),
+                                                    //             Text(
+                                                    //                 " Loan Availability  : {data!.msg[index].loan}",
+                                                    //                 softWrap:
+                                                    //                     true,
+                                                    //                 style:
+                                                    //                     TextStyle()),
+                                                    //           ],
+                                                    //         ),
                                                     //     ],
                                                     //   ),
+                                                    // ],
                                                     // ),
                                                   ],
                                                 ),

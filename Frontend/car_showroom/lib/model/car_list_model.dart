@@ -1,81 +1,167 @@
 class CarListModel {
-  CarListModel({
-    required this.msg,
-  });
-  late final List<Msg> msg;
-  
-  CarListModel.fromJson(Map<String, dynamic> json){
-    msg = List.from(json['msg']).map((e)=>Msg.fromJson(e)).toList();
+  List<Msg>? msg;
+
+  CarListModel({this.msg});
+
+  CarListModel.fromJson(Map<String, dynamic> json) {
+    if (json['msg'] != null) {
+      msg = <Msg>[];
+      json['msg'].forEach((v) {
+        msg!.add(Msg.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['msg'] = msg.map((e)=>e.toJson()).toList();
-    return _data;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (msg != null) {
+      data['msg'] = msg!.map((v) => v.toJson()).toList();
+    }
+    return data;
   }
 }
 
 class Msg {
-  Msg({
-    required this.id,
-    required this.Showroom,
-    required this.Carmodel,
-    required this.Manufacturer,
-    required this.Carspecs,
-    required this.Price,
-    required this.Milleage,
-    required this.Features,
-    required this.Colors,
-    required this.Availability,
-    required this.Warranty,
-    required this.Loan,
-    required this.CarImage
-  });
-  late final String id;
-  late final String Showroom;
-  late final String Carmodel;
-  late final String Manufacturer;
-  late final String Carspecs;
-  late final String Price;
-  late final String Milleage;
-  late final String Features;
-  late final String Colors;
-  late final String Availability;
-  late final String Warranty;
-  late final String Loan;
-  late final String CarImage;
-  
-  Msg.fromJson(Map<String, dynamic> json){
-    id = json['_id'];
-    Showroom = json['Showroom'];
-    Carmodel = json['Carmodel'];
-    Manufacturer = json['Manufacturer'];
-    Carspecs = json['Carspecs'];
-    Price = json['Price'];
-    Milleage = json['Milleage'];
-    Features = json['Features'];
-    Colors = json['Colors'];
-    Availability = json['Availability'];
-    Warranty = json['Warranty'];
-    Loan = json['Loan'];
-    CarImage = json['CarImage'];
+  String? sId;
+  Showroom? showroom;
+  String? carmodel;
+  String? manufacturer;
+  String? carspecs;
+  String? price;
+  String? milleage;
+  String? features;
+  String? colors;
+  String? availability;
+  String? warranty;
+  String? loan;
+  String? carImage;
+  int? iV;
+
+  Msg(
+      {this.sId,
+      this.showroom,
+      this.carmodel,
+      this.manufacturer,
+      this.carspecs,
+      this.price,
+      this.milleage,
+      this.features,
+      this.colors,
+      this.availability,
+      this.warranty,
+      this.loan,
+      this.carImage,
+      this.iV});
+
+  Msg.fromJson(Map<String, dynamic> json) {
+    sId = json['_id'];
+    showroom =
+        json['Showroom'] != null ? Showroom.fromJson(json['Showroom']) : null;
+    carmodel = json['Carmodel'];
+    manufacturer = json['Manufacturer'];
+    carspecs = json['Carspecs'];
+    price = json['Price'];
+    milleage = json['Milleage'];
+    features = json['Features'];
+    colors = json['Colors'];
+    availability = json['Availability'];
+    warranty = json['Warranty'];
+    loan = json['Loan'];
+    carImage = json['CarImage'];
+    iV = json['__v'];
   }
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['_id'] = id;
-    _data['Showroom'] = Showroom;
-    _data['Carmodel'] = Carmodel;
-    _data['Manufacturer'] = Manufacturer;
-    _data['Carspecs'] = Carspecs;
-    _data['Price'] = Price;
-    _data['Milleage'] = Milleage;
-    _data['Features'] = Features;
-    _data['Colors'] = Colors;
-    _data['Availability'] = Availability;
-    _data['Warranty'] = Warranty;
-    _data['Loan'] = Loan;
-    _data['CarImage'] = CarImage;
-    return _data;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['_id'] = sId;
+    if (showroom != null) {
+      data['Showroom'] = showroom!.toJson();
+    }
+    data['Carmodel'] = carmodel;
+    data['Manufacturer'] = manufacturer;
+    data['Carspecs'] = carspecs;
+    data['Price'] = price;
+    data['Milleage'] = milleage;
+    data['Features'] = features;
+    data['Colors'] = colors;
+    data['Availability'] = availability;
+    data['Warranty'] = warranty;
+    data['Loan'] = loan;
+    data['CarImage'] = carImage;
+    data['__v'] = iV;
+    return data;
+  }
+}
+
+class Showroom {
+  String? sId;
+  String? name;
+  String? email;
+  int? phone;
+  String? address;
+  String? city;
+  String? district;
+  String? state;
+  int? pincode;
+  String? password;
+  String? userType;
+  String? showroomName;
+  String? license;
+  bool? verification;
+  int? iV;
+
+  Showroom(
+      {this.sId,
+      this.name,
+      this.email,
+      this.phone,
+      this.address,
+      this.city,
+      this.district,
+      this.state,
+      this.pincode,
+      this.password,
+      this.userType,
+      this.showroomName,
+      this.license,
+      this.verification,
+      this.iV});
+
+  Showroom.fromJson(Map<String, dynamic> json) {
+    sId = json['_id'];
+    name = json['Name'];
+    email = json['Email'];
+    phone = json['Phone'];
+    address = json['Address'];
+    city = json['City'];
+    district = json['District'];
+    state = json['State'];
+    pincode = json['Pincode'];
+    password = json['Password'];
+    userType = json['UserType'];
+    showroomName = json['ShowroomName'];
+    license = json['License'];
+    verification = json['Verification'];
+    iV = json['__v'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['_id'] = sId;
+    data['Name'] = name;
+    data['Email'] = email;
+    data['Phone'] = phone;
+    data['Address'] = address;
+    data['City'] = city;
+    data['District'] = district;
+    data['State'] = state;
+    data['Pincode'] = pincode;
+    data['Password'] = password;
+    data['UserType'] = userType;
+    data['ShowroomName'] = showroomName;
+    data['License'] = license;
+    data['Verification'] = verification;
+    data['__v'] = iV;
+    return data;
   }
 }

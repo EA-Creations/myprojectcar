@@ -27,6 +27,8 @@ class Msg {
     required this.District,
     required this.State,
     required this.Pincode,
+    required this.License,
+    required this.verification,
   });
   late final String id;
   late final String Name;
@@ -37,6 +39,8 @@ class Msg {
   late final String City;
   late final String District;
   late final String State;
+  late final String License;
+  late final bool verification;
   late final int Pincode;
 
   Msg.fromJson(Map<String, dynamic> json) {
@@ -50,6 +54,8 @@ class Msg {
     District = json['District'];
     State = json['State'];
     Pincode = json['Pincode'];
+    License = json['License'];
+    verification = json['Verification'];
   }
 
   Map<String, dynamic> toJson() {

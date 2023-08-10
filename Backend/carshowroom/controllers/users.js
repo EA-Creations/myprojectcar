@@ -9,7 +9,6 @@ const { body } = require("express-validator");
 
 // Export Registration of Users function
 exports.Registration = (req,res) => {
-    console.log(req.body)
     Users.findOne({$or : [{Email : req.body.Email}, {Phone : req.body.Phone}]}).then((result) => {
 
         if(result) {
@@ -43,7 +42,6 @@ exports.Registration = (req,res) => {
 
 // Export all user details function
 exports.getAllUsers =  (req, res) => {
-    console.log(req.body)
     Users.find().then((result) => {
         if(result) {
             return res.status(201).json({ 'msg': result });
@@ -57,7 +55,6 @@ exports.getAllUsers =  (req, res) => {
 
 // Export a specific user function
 exports.getUser =  (req, res) => {
-    console.log(req.body)
     Users.find({_id: req.body.UserId}).then((result) => {
         if(result) {
             return res.status(201).json({ 'msg': result });

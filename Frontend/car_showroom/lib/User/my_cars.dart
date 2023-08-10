@@ -1,36 +1,43 @@
 import 'dart:convert';
 
+import 'package:car_showroom/User/service_request%20copy.dart';
 import 'package:car_showroom/common/utils.dart';
-import 'package:car_showroom/User/car_details.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../common/urls.dart';
-import '../../model/car_list_model.dart';
+import '../model/mycarsmodel.dart';
 
-class CarListScreen extends StatefulWidget {
+class MyCars extends StatefulWidget {
   final String showroomid;
-  const CarListScreen({
+  const MyCars({
     Key? key,
     required this.showroomid,
   }) : super(key: key);
   @override
-  State<CarListScreen> createState() => _CarListScreenState();
+  State<MyCars> createState() => _MyCarsState();
 }
 
-class _CarListScreenState extends State<CarListScreen> {
+class _MyCarsState extends State<MyCars> {
   final dio = Dio();
-  CarListModel? data;
+  MyCarModel? data;
+  final storage = const FlutterSecureStorage();
+
   void getLens() async {
-    final response =
-        await dio.get(Urls.getCar, data: {"Showroom": widget.showroomid});
+    Map<String, String> allValues = await storage.readAll();
+
+    String? userid = allValues["id"];
+
+    final response = await dio.post(Urls.getMyCar,
+        data: {"CustomerId": userid, "ShowroomId": widget.showroomid});
 
     if (response.statusCode == 201) {
       // print(response.data);
       setState(() {});
-      data = CarListModel.fromJson(response.data);
+      data = MyCarModel.fromJson(response.data);
     } else {
       throw Exception('Failed to load');
     }
@@ -49,7 +56,7 @@ class _CarListScreenState extends State<CarListScreen> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text(
-            "Car List",
+            "My Cars",
             style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
           ),
         ),
@@ -88,9 +95,11 @@ class _CarListScreenState extends State<CarListScreen> {
                                       onTap: () {
                                         push(
                                             context,
-                                            CarDetailsScrren(
-                                                showroomid: widget.showroomid,
-                                                carData: data!.msg![index]));
+                                            UserServiceRequestScreen(
+                                              showroomId: widget.showroomid,
+                                              carId:
+                                                  data!.msg![index].carId!.sId!,
+                                            ));
                                       },
                                       child: Card(
                                         //  color: Colors.white,
@@ -108,7 +117,9 @@ class _CarListScreenState extends State<CarListScreen> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                             children: [
-                                              Text(data!.msg![index].carmodel!,
+                                              Text(
+                                                  data!.msg![index].carId!
+                                                      .carmodel!,
                                                   textAlign: TextAlign.center,
                                                   maxLines: 1,
                                                   softWrap: true,
@@ -125,7 +136,7 @@ class _CarListScreenState extends State<CarListScreen> {
                                                 height: 150,
                                                 child: Image.memory(
                                                   base64Decode(data!.msg![index]
-                                                      .carImage!
+                                                      .carId!.carImage!
                                                       .split(',')[1]),
                                                   fit: BoxFit.cover,
                                                   errorBuilder: (context, error,
@@ -155,7 +166,7 @@ class _CarListScreenState extends State<CarListScreen> {
                                                               size: 15,
                                                             ),
                                                             Text(
-                                                                " Price : ${data!.msg![index].price}",
+                                                                " Price : ${data!.msg![index].carId!.price}",
                                                                 // textAlign: TextAlign.center,
 
                                                                 softWrap: true,
@@ -200,7 +211,7 @@ class _CarListScreenState extends State<CarListScreen> {
                                                                   size: 18,
                                                                 ),
                                                                 Text(
-                                                                    " Manufacturer : ${data!.msg![index].manufacturer}",
+                                                                    " Manufacturer : ${data!.msg![index].carId!.manufacturer}",
                                                                     softWrap:
                                                                         true,
                                                                     style:
@@ -218,7 +229,7 @@ class _CarListScreenState extends State<CarListScreen> {
                                                                   size: 18,
                                                                 ),
                                                                 Text(
-                                                                    " Loan Availability  : ${data!.msg![index].loan}",
+                                                                    " Loan Availability  : ${data!.msg![index].carId!.loan}",
                                                                     softWrap:
                                                                         true,
                                                                     style:

@@ -9,37 +9,38 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '../common/urls.dart';
 import '../model/booking_model.dart';
 
-class MyCustomers extends StatefulWidget {
-  const MyCustomers({super.key});
+class Booking extends StatefulWidget {
+  const Booking({super.key});
   @override
-  State<MyCustomers> createState() => _MyCustomersState();
+  State<Booking> createState() => _BookingState();
 }
 
-class _MyCustomersState extends State<MyCustomers> {
+class _BookingState extends State<Booking> {
   final dio = Dio();
   BookingModel? data;
 
-  // void updateMyCustomers(String id) async {
-  //   final response =
-  //       await dio.post(Urls.getAcceptedBookings, data: {"MyCustomersId": id});
+  void updateBooking(String id) async {
+    final response =
+        await dio.post(Urls.updateBooking, data: {"BookingId": id});
 
-  //   if (response.statusCode == 201) {
-  //     setState(() {});
+    if (response.statusCode == 201) {
+      setState(() {});
 
-  //     getMyCustomerss();
-  //   } else {
-  //     throw Exception('Failed to load');
-  //   }
-  // }
+      getBookings();
+    } else {
+      throw Exception('Failed to load');
+    }
+  }
 
   final storage = const FlutterSecureStorage();
-  void getMyCustomerss() async {
+
+  void getBookings() async {
     Map<String, String> allValues = await storage.readAll();
 
     String? userid = allValues["id"];
     final response =
-        await dio.get(Urls.getAcceptedBookings, data: {"ShowroomId": userid});
-    print(userid);
+        await dio.get(Urls.getPendingBookings, data: {"ShowroomId": userid});
+
     if (response.statusCode == 201) {
       setState(() {});
       data = BookingModel.fromJson(response.data);
@@ -50,7 +51,7 @@ class _MyCustomersState extends State<MyCustomers> {
 
   @override
   void initState() {
-    getMyCustomerss();
+    getBookings();
     // TODO: implement initState
     super.initState();
   }
@@ -61,7 +62,7 @@ class _MyCustomersState extends State<MyCustomers> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text(
-            "My Customers",
+            "Verify Booking",
             style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
           ),
         ),
@@ -82,7 +83,7 @@ class _MyCustomersState extends State<MyCustomers> {
                         height: 500,
                         child: Center(
                             child: Text(
-                          "No MyCustomerss Available",
+                          "No Bookings Available",
                           textScaleFactor: 1.3,
                         )))
                     : Column(
@@ -213,11 +214,11 @@ class _MyCustomersState extends State<MyCustomers> {
                                                             Switch(
                                                               onChanged:
                                                                   (value) async {
-                                                                // updateMyCustomers(
-                                                                //     data!
-                                                                //         .msg![
-                                                                //             index]
-                                                                //         .sId!);
+                                                                updateBooking(
+                                                                    data!
+                                                                        .msg![
+                                                                            index]
+                                                                        .sId!);
                                                               },
                                                               value: data!
                                                                   .msg![index]

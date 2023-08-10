@@ -237,18 +237,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         //   },
                         // ),
                         const SizedBox(height: 20),
-                        Center(
-                          child: ElevatedButton(
-                            onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                _formKey.currentState!.save();
-                                // submit();
-                                // Do something with the form data
-                              }
-                            },
-                            child: const Text('Update'),
-                          ),
-                        ),
+                        // Center(
+                        //   child: ElevatedButton(
+                        //     onPressed: () {
+                        //       if (_formKey.currentState!.validate()) {
+                        //         _formKey.currentState!.save();
+                        //         // submit();
+                        //         // Do something with the form data
+                        //       }
+                        //     },
+                        //     child: const Text('Update'),
+                        //   ),
+                        // ),
                       ],
                     ),
             )

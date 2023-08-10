@@ -1,6 +1,7 @@
 import 'package:car_showroom/User/my_profile.dart';
 import 'package:car_showroom/User/my_showroom.dart';
 import 'package:car_showroom/User/service_request.dart';
+import 'package:car_showroom/User/test_drive.dart';
 import 'package:car_showroom/User/widgets/image_slider.dart';
 import 'package:car_showroom/common/utils.dart';
 import 'package:car_showroom/User/showrooms.dart';
@@ -73,7 +74,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                           size: 30,
                         ),
                         onPress: () {
-                          push(context, const MyShowroomScreen());
+                          push(context, const MyShowroomsScreen());
                         },
                         title: "My Showrooms"),
                   ],
@@ -87,9 +88,24 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                           size: 30,
                         ),
                         onPress: () {
-                          push(context, const UserServiceRequestScreen());
+                          push(context, const ServiceReques());
                         },
                         title: "Service Request"),
+                    // const Spacer(),
+                    CategoryWidget(
+                        widg: const FaIcon(
+                          FontAwesomeIcons.idCard,
+                          size: 30,
+                        ),
+                        onPress: () {
+                          push(context, const TestDrive());
+                        },
+                        title: "Test Drive Status"),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
                     // const Spacer(),
                     CategoryWidget(
                         widg: const FaIcon(

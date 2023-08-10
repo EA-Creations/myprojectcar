@@ -1,5 +1,6 @@
 import 'package:car_showroom/common/utils.dart';
 import 'package:car_showroom/User/widgets/car_list_screen.dart';
+import 'package:car_showroom/model/accepeted_showroom.dart';
 import 'package:car_showroom/model/showroomreviewmodel.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -7,15 +8,15 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '../common/urls.dart';
-import '../model/accepeted_showroom.dart';
 
-class ShowroomListScreen extends StatefulWidget {
-  const ShowroomListScreen({super.key});
+class AdminShowroomListScreen extends StatefulWidget {
+  const AdminShowroomListScreen({super.key});
   @override
-  State<ShowroomListScreen> createState() => _ShowroomListScreenState();
+  State<AdminShowroomListScreen> createState() =>
+      _AdminShowroomListScreenState();
 }
 
-class _ShowroomListScreenState extends State<ShowroomListScreen> {
+class _AdminShowroomListScreenState extends State<AdminShowroomListScreen> {
   final dio = Dio();
   AccepetedShowroomModel? data;
 

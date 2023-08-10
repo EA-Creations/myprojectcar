@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:car_showroom/auth/login.dart';
 
 import 'User/home.dart';
+import 'admin/admin_home.dart';
 import 'common/intro_slider.dart';
 import 'showroom/home.dart';
 // import 'home.dart';
@@ -41,8 +42,8 @@ class MyApp extends StatelessWidget {
         '/signup': (context) => const SignUpScreen(),
         '/showroomhome': (context) => const HomeScreen(),
         '/userhome': (context) => const UserHomeScreen(),
+        '/adminHomeScreen': (context) => const AdminHomeScreen(),
         '/intro': (context) => const IntroScreen(),
-        // '/forgotpassword': (context) => ForgotPasswordScreen(),
       },
     );
   }

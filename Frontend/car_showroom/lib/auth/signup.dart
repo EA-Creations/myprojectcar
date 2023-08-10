@@ -1,5 +1,7 @@
 //import 'package:dio/dio.dart';
 //flutter packages imports
+import 'dart:convert';
+
 import 'package:car_showroom/service/auth/auth.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +26,7 @@ class _SignUpScreenState extends State<SignUpScreen>
   late TabController tabController;
   final _UserFormKey = GlobalKey<FormState>();
   final _ShowRoomFormKey = GlobalKey<FormState>();
+
   String? _name,
       _email,
       _password,
@@ -44,7 +47,15 @@ class _SignUpScreenState extends State<SignUpScreen>
   int? _pincode, _showroompincode, _showroomphone, _phone;
   bool obscureText1 = true, obscureText2 = true;
   File? _selectedImage;
+  XFile? _imageFile;
   //Authservice services = Authservice();
+  Future<void> getImageFromGallery() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      _imageFile = image;
+    });
+  }
 
   _SubmitSignUpUser() async {
     if (_UserFormKey.currentState!.validate()) {
@@ -64,11 +75,11 @@ class _SignUpScreenState extends State<SignUpScreen>
       try {
         final Response response = await AuthService().registerUser(user);
         print(response);
-       push(
-                        context,
-                        const LoginScreen(
-                          intro: false,
-                        ));
+        push(
+            context,
+            const LoginScreen(
+              intro: false,
+            ));
       } on DioError catch (e) {
         if (e.response != null) {
           print(e.response!.data);
@@ -106,6 +117,11 @@ class _SignUpScreenState extends State<SignUpScreen>
   }
 
   _SubmitSignUpShowroom() async {
+    List<String>? s = _imageFile?.path.toString().split("/");
+    final bytes = await File(_imageFile!.path).readAsBytes();
+    final base64 = base64Encode(bytes);
+    var pic = "data:image/${s![s.length - 1].split(".")[1]};base64,$base64";
+
     if (_ShowRoomFormKey.currentState!.validate()) {
       var user = {
         "Name": _managername,
@@ -119,19 +135,19 @@ class _SignUpScreenState extends State<SignUpScreen>
         "Password": _confirmPassword,
         "userType": "Showroom",
         "ShowroomName": _showroomname,
-        "License": "Someem",
+        "License": pic,
         "Verification": false
       };
-      print(user);
+      // print(user);
       try {
         final Response response =
             await AuthService().showroomRegisterUser(user);
         print(response);
-    push(
-                        context,
-                        const LoginScreen(
-                          intro: false,
-                        ));
+        push(
+            context,
+            const LoginScreen(
+              intro: false,
+            ));
       } on DioError catch (e) {
         if (e.response != null) {
           print(e.response!.data);
@@ -145,17 +161,17 @@ class _SignUpScreenState extends State<SignUpScreen>
     }
   }
 
-  Future<void> _selectImage() async {
-    final picker = ImagePicker();
-    final pickedImage = await picker.pickImage(source: ImageSource.gallery);
+  // Future<void> _selectImage() async {
+  //   final picker = ImagePicker();
+  //   final pickedImage = await picker.pickImage(source: ImageSource.gallery);
 
-    if (pickedImage != null) {
-      setState(() {
-        _selectedImage = File(pickedImage.path);
-        _selectedImageName = _selectedImage!.path.split('/').last;
-      });
-    }
-  }
+  //   if (pickedImage != null) {
+  //     setState(() {
+  //       _selectedImage = File(pickedImage.path);
+  //       _selectedImageName = _selectedImage!.path.split('/').last;
+  //     });
+  //   }
+  // }
 
   int _selectedIndex = 0;
   @override
@@ -208,11 +224,11 @@ class _SignUpScreenState extends State<SignUpScreen>
                     ),
                     GestureDetector(
                       onTap: () {
-                     push(
-                        context,
-                        const LoginScreen(
-                          intro: false,
-                        ));
+                        push(
+                            context,
+                            const LoginScreen(
+                              intro: false,
+                            ));
                       },
                       child: const Text(
                         'Login',
@@ -277,7 +293,6 @@ class _SignUpScreenState extends State<SignUpScreen>
                                 keyboardType: TextInputType.text,
                                 decoration: const InputDecoration(
                                   labelText: 'Name',
-                                  
                                   prefixIcon: Icon(Icons.person),
                                   border: OutlineInputBorder(),
                                 ),
@@ -834,7 +849,7 @@ class _SignUpScreenState extends State<SignUpScreen>
                                     //SizedBox(height: 20),
 
                                     ElevatedButton(
-                                      onPressed: _selectImage,
+                                      onPressed: getImageFromGallery,
                                       child: const Text('Select Image'),
                                     ),
                                     Container(
@@ -850,8 +865,9 @@ class _SignUpScreenState extends State<SignUpScreen>
                                               BorderRadius.circular(4)),
                                       child: Center(
                                           child: Text(
-                                        _selectedImageName ??
-                                            'No image selected',
+                                        _imageFile == null
+                                            ? 'No image selected'
+                                            : _imageFile!.name,
                                         style: const TextStyle(
                                           fontSize: 16,
                                         ),

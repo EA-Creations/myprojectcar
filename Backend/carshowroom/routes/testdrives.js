@@ -9,10 +9,8 @@ var TestDriveController = require("../controllers/testdrives");
 
 // Set routes for respective controller function
 routes.post('/AddTestDrive', TestDriveController.AddTestDrive)
-routes.get('/ShowroomPendingTestDrives', TestDriveController.ShowroomPendingTestDrives)
-routes.get('/getUserTestDrivesPending', TestDriveController.getUserTestDrivesPending)
-routes.get('/getUserTestDrivesAccepted', TestDriveController.getUserTestDrivesAccepted)
-routes.get('/ShowroomAcceptedTestDrives', TestDriveController.ShowroomAcceptedTestDrives)
+routes.get('/ShowroomTestDrives', TestDriveController.ShowroomTestDrives)
+routes.get('/getUserTestDrives', TestDriveController.getUserTestDrives)
 routes.post('/UpdateTestDrive', TestDriveController.UpdateTestDrive)
 
 // Export routes

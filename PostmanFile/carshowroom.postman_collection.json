@@ -1004,7 +1004,7 @@
 					"response": []
 				},
 				{
-					"name": "getUserTestDrivesPending",
+					"name": "getUserTestDrives",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -1021,7 +1021,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/getUserTestDrivesPending",
+							"raw": "http://localhost:3000/api/getUserTestDrives",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1029,46 +1029,14 @@
 							"port": "3000",
 							"path": [
 								"api",
-								"getUserTestDrivesPending"
+								"getUserTestDrives"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "getUserTestDrivesAccepted",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"CustomerId\" : \"64c0ae609f580e8191df4b87\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/api/getUserTestDrivesAccepted",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"getUserTestDrivesAccepted"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "ShowroomPendingTestDrives Copy",
+					"name": "ShowroomTestDrives",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -1085,7 +1053,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/ShowroomPendingTestDrives",
+							"raw": "http://localhost:3000/api/ShowroomTestDrives",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1093,39 +1061,7 @@
 							"port": "3000",
 							"path": [
 								"api",
-								"ShowroomPendingTestDrives"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "ShowroomAcceptedTestDrives",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"ShowroomId\" : \"64c0af529f580e8191df4b91\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/api/ShowroomAcceptedTestDrives",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"ShowroomAcceptedTestDrives"
+								"ShowroomTestDrives"
 							]
 						}
 					},

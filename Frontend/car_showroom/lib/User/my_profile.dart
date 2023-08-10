@@ -27,6 +27,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   }
 
   void getProfile() async {
+     
     Map<String, String> allValues = await storage.readAll();
 
     String? userid = allValues["id"];
@@ -221,18 +222,18 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                         //   },
                         // ),
                         const SizedBox(height: 20),
-                        Center(
-                          child: ElevatedButton(
-                            onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                _formKey.currentState!.save();
-                                // submit();
-                                // Do something with the form data
-                              }
-                            },
-                            child: const Text('Update'),
-                          ),
-                        ),
+                        // Center(
+                        //   child: ElevatedButton(
+                        //     onPressed: () {
+                        //       if (_formKey.currentState!.validate()) {
+                        //         _formKey.currentState!.save();
+                        //         // submit();
+                        //         // Do something with the form data
+                        //       }
+                        //     },
+                        //     child: const Text('Update'),
+                        //   ),
+                        // ),
                       ],
                     ),
             )

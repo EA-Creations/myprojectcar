@@ -1,6 +1,10 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../service/showroom/showroom_service.dart';
 
@@ -27,8 +31,23 @@ class _AddCarScreenState extends State<AddCarScreen> {
   String? CarImage;
   ShowroomService service = ShowroomService();
 
+  XFile? _imageFile;
+  //Authservice services = Authservice();
+  Future<void> getImageFromGallery() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      _imageFile = image;
+    });
+  }
+
   final storage = const FlutterSecureStorage();
   submit() async {
+    List<String>? s = _imageFile?.path.toString().split("/");
+    final bytes = await File(_imageFile!.path).readAsBytes();
+    final base64 = base64Encode(bytes);
+    var pic = "data:image/${s![s.length - 1].split(".")[1]};base64,$base64";
+
     Map<String, String> allValues = await storage.readAll();
 
     String? userid = allValues["id"];
@@ -49,11 +68,22 @@ class _AddCarScreenState extends State<AddCarScreen> {
       "Availability": Availability,
       "Warranty": Warranty,
       "Loan": Loan,
-      "CarImage": CarImage
+      "CarImage": pic
     };
     try {
       final Response res = await service.addCar(data);
       print(res);
+      Carmodel = null;
+      Manufacturer = null;
+      Carspecs = null;
+      Price = null;
+      Milleage = null;
+      Features = null;
+      Color = null;
+      Availability = null;
+      Warranty = null;
+      Loan = null;
+      _imageFile = null;
       showDialog(
           context: context,
           builder: (BuildContext context) {
@@ -257,17 +287,40 @@ class _AddCarScreenState extends State<AddCarScreen> {
                     Loan = value;
                   },
                 ),
-                TextFormField(
-                  decoration: const InputDecoration(labelText: 'CarImage'),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter CarImage';
-                    }
-                    return null;
-                  },
-                  onSaved: (value) {
-                    CarImage = value;
-                  },
+                // TextFormField(
+                //   decoration: const InputDecoration(labelText: 'CarImage'),
+                //   validator: (value) {
+                //     if (value == null || value.isEmpty) {
+                //       return 'Please enter CarImage';
+                //     }
+                //     return null;
+                //   },
+                //   onSaved: (value) {
+                //     CarImage = value;
+                //   },
+                // ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      TextButton(
+                          onPressed: () {
+                            getImageFromGallery();
+                          },
+                          child: const Text("Select Image")),
+                      Container(
+                        child: _imageFile == null
+                            ? const Text('No image selected ')
+                            : Image.file(
+                                File(_imageFile!.path),
+                                width: 55,
+                                height: 55,
+                                fit: BoxFit.cover,
+                              ),
+                      ),
+                    ],
+                  ),
                 ),
                 const SizedBox(height: 16),
                 Center(

@@ -1,70 +1,49 @@
-import 'package:car_showroom/User/my_cars.dart';
-import 'package:car_showroom/model/myshowroommodel.dart';
+import 'dart:convert';
+
+import 'package:car_showroom/common/utils.dart';
+import 'package:car_showroom/User/widgets/car_list_screen.dart';
+import 'package:car_showroom/model/showroomreviewmodel.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '../common/urls.dart';
-import '../common/utils.dart';
+import '../model/showroom_model.dart';
 
-class ServiceReques extends StatefulWidget {
-  const ServiceReques({super.key});
+class VerifyShowrooms extends StatefulWidget {
+  const VerifyShowrooms({super.key});
   @override
-  State<ServiceReques> createState() => _ServiceRequesState();
+  State<VerifyShowrooms> createState() => _VerifyShowroomsState();
 }
 
-class _ServiceRequesState extends State<ServiceReques> {
+class _VerifyShowroomsState extends State<VerifyShowrooms> {
   final dio = Dio();
+  ShowroomModel? data;
 
-  TextEditingController reviewTxt = TextEditingController();
+  ShowroomReview? reviewData;
+ 
 
-  final storage = const FlutterSecureStorage();
-  MyShowroomModel? data;
-
-  int rate = 0;
-
-  void addReview({String? review, String? showid}) async {
-    Map<String, String> allValues = await storage.readAll();
-
-    String? userid = allValues["id"];
-
-    var data = {
-      "CustomerId": userid,
-      "ShowroomId": showid,
-      "Feedbacks": review,
-      "Rating": rate
-    };
-    final response = await dio.post(Urls.addReviewShowroom, data: data);
-    // print(data);
+  void getShowrooms() async {
+    final response = await dio.get(Urls.getAllShowroomAdmin);
 
     if (response.statusCode == 201) {
-      final snackBar = SnackBar(
-        content: Text(response.data["msg"].toString()),
-      );
-      Navigator.pop(context);
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-
-      // print(response.data);
-
       setState(() {});
-      reviewTxt.clear();
+      data = ShowroomModel.fromJson(response.data);
     } else {
       throw Exception('Failed to load');
     }
   }
 
-  void getLens() async {
-    Map<String, String> allValues = await storage.readAll();
-
-    String? userid = allValues["id"];
+  void updateShowroom(String id) async {
     final response =
-        await dio.post(Urls.getMyShowroom, data: {"CustomerId": userid});
+        await dio.post(Urls.updateShowroom, data: {"ShowroomId": id});
 
     if (response.statusCode == 201) {
       setState(() {});
-      data = MyShowroomModel.fromJson(response.data);
+      print(response);
+
+      getShowrooms();
     } else {
       throw Exception('Failed to load');
     }
@@ -72,7 +51,7 @@ class _ServiceRequesState extends State<ServiceReques> {
 
   @override
   void initState() {
-    getLens();
+    getShowrooms();
     // TODO: implement initState
     super.initState();
   }
@@ -83,7 +62,7 @@ class _ServiceRequesState extends State<ServiceReques> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text(
-            "My Showrooms",
+            "Verify Showrooms",
             style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
           ),
         ),
@@ -99,7 +78,7 @@ class _ServiceRequesState extends State<ServiceReques> {
                         size: 50,
                       ),
                     ))
-                : data!.msg!.isEmpty
+                : data!.msg.isEmpty
                     ? const SizedBox(
                         height: 500,
                         child: Center(
@@ -116,15 +95,15 @@ class _ServiceRequesState extends State<ServiceReques> {
                                   physics: const ScrollPhysics(),
                                   shrinkWrap: true,
                                   reverse: true,
-                                  itemCount: data!.msg!.length,
+                                  itemCount: data!.msg.length,
                                   itemBuilder: (BuildContext ctx, index) {
                                     return InkWell(
                                       onTap: () {
-                                        // push(
-                                        //     context,
-                                        //     CarListScreen(
-                                        //         showroomid:
-                                        //             data!.msg[index].id));
+                                        push(
+                                            context,
+                                            CarListScreen(
+                                                showroomid:
+                                                    data!.msg[index].id));
                                       },
                                       child: Card(
                                         //  color: Colors.white,
@@ -143,8 +122,7 @@ class _ServiceRequesState extends State<ServiceReques> {
                                                 MainAxisAlignment.center,
                                             children: [
                                               Text(
-                                                  data!.msg![index].showroomId!
-                                                      .showroomName!,
+                                                  data!.msg[index].ShowroomName,
                                                   textAlign: TextAlign.center,
                                                   maxLines: 1,
                                                   softWrap: true,
@@ -184,7 +162,7 @@ class _ServiceRequesState extends State<ServiceReques> {
                                                               size: 15,
                                                             ),
                                                             Text(
-                                                                " Place : ${data!.msg![index].showroomId!.city!}",
+                                                                " Place : ${data!.msg[index].City}",
                                                                 // textAlign: TextAlign.center,
 
                                                                 softWrap: true,
@@ -237,7 +215,7 @@ class _ServiceRequesState extends State<ServiceReques> {
                                                                     size: 18,
                                                                   ),
                                                                   Text(
-                                                                      " Contact no : ${data!.msg![index].showroomId!.phone}",
+                                                                      " Contact no : ${data!.msg[index].Phone}",
                                                                       softWrap:
                                                                           true,
                                                                       style: const TextStyle(
@@ -257,7 +235,7 @@ class _ServiceRequesState extends State<ServiceReques> {
                                                                     size: 18,
                                                                   ),
                                                                   Text(
-                                                                      " Email : ${data!.msg![index].showroomId!.email}",
+                                                                      " Email : ${data!.msg[index].Email}",
                                                                       softWrap:
                                                                           true,
                                                                       style: const TextStyle(
@@ -278,22 +256,82 @@ class _ServiceRequesState extends State<ServiceReques> {
                                               const SizedBox(
                                                 height: 10,
                                               ),
-                                              TextButton(
-                                                  onPressed: () {
-                                                    push(
-                                                        context,
-                                                        MyCars(
-                                                          showroomid: data!
-                                                              .msg![index]
-                                                              .showroomId!
-                                                              .sId!,
-                                                        ));
-                                                  },
-                                                  child: const Text(
-                                                    "Service Request",
-                                                    style: TextStyle(
-                                                        color: Colors.red),
-                                                  ))
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                children: [
+                                                  TextButton(
+                                                      onPressed: () {
+                                                        showDialog<void>(
+                                                          context: context,
+                                                          builder: (BuildContext
+                                                              context) {
+                                                            print(data!
+                                                                .msg[index]
+                                                                .License);
+                                                            //  data!
+                                                            //             .msg[
+                                                            //                 index]
+                                                            //             .License ==
+                                                            //         null
+                                                            //     ? const Text(
+                                                            //         'No image selected ')
+                                                            //     :
+                                                            return AlertDialog(
+                                                              content:
+                                                                  Container(
+                                                                height: 200,
+                                                                width: 300,
+                                                                color: Colors
+                                                                    .white,
+                                                                child: Image
+                                                                    .memory(
+                                                                  base64Decode(data!
+                                                                      .msg[
+                                                                          index]
+                                                                      .License
+                                                                      .split(
+                                                                          ',')[1]),
+                                                                  fit: BoxFit
+                                                                      .cover,
+                                                                  errorBuilder: (context,
+                                                                          error,
+                                                                          stackTrace) =>
+                                                                      const Text(
+                                                                          "error"),
+                                                                ),
+                                                              ),
+                                                            );
+                                                          },
+                                                        );
+                                                      },
+                                                      child: const Text(
+                                                          "View License")),
+                                                  Row(
+                                                    children: [
+                                                      const Text("Verify"),
+                                                      Switch(
+                                                        onChanged:
+                                                            (value) async {
+                                                          updateShowroom(data!
+                                                              .msg[index].id);
+                                                        },
+                                                        value: data!.msg[index]
+                                                            .verification,
+                                                        activeColor:
+                                                            Colors.green,
+                                                        activeTrackColor:
+                                                            Colors.grey,
+                                                        inactiveThumbColor:
+                                                            Colors.redAccent,
+                                                        inactiveTrackColor:
+                                                            Colors.grey,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
                                             ],
                                           ),
                                         ),

@@ -4,10 +4,13 @@ import 'package:car_showroom/showroom/add_car.dart';
 import 'package:car_showroom/showroom/my_customers.dart';
 import 'package:car_showroom/showroom/profile.dart';
 import 'package:car_showroom/showroom/service_requests.dart';
+import 'package:car_showroom/showroom/test_drive.dart';
 import 'package:car_showroom/showroom/widgets/category_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import 'booking.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -68,9 +71,33 @@ class _HomeScreenState extends State<HomeScreen> {
                           size: 30,
                         ),
                         onPress: () {
-                          push(context, const MyCustomersScreen());
+                          push(context, const MyCustomers());
                         },
                         title: "My Customers"),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    CategoryWidget(
+                        widg: const FaIcon(
+                          FontAwesomeIcons.t,
+                          size: 30,
+                        ),
+                        onPress: () {
+                          push(context, const VerifyTestDrive());
+                        },
+                        title: "View Test Drives"),
+                    CategoryWidget(
+                        widg: const FaIcon(
+                          FontAwesomeIcons.b,
+                          size: 30,
+                        ),
+                        onPress: () {
+                          push(context, const Booking());
+                        },
+                        title: "View Bookings"),
+                    // const Spacer(),
                   ],
                 ),
                 Row(
@@ -82,7 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           size: 30,
                         ),
                         onPress: () {
-                          push(context, const ServiceRequestScreen());
+                          push(context, const ServiceRequest());
                         },
                         title: "View Service Request"),
                     // const Spacer(),
@@ -96,7 +123,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         },
                         title: "Profile"),
                   ],
-                )
+                ),
               ],
             ),
           )),

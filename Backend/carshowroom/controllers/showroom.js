@@ -9,7 +9,6 @@ const { body } = require("express-validator");
 
 // Export Registartion of Showroom function
 exports.Registration = (req, res) => {
-    console.log(req.body)
     Showroom.findOne({ $or: [{ Email: req.body.Email }, { Phone: req.body.Phone }] }).select("Email Phone").then((result) => {
 
         if (result) {
@@ -32,7 +31,6 @@ exports.Registration = (req, res) => {
 
 // Export All Showroom details function
 exports.getAllShowroom =  (req, res) => {
-    console.log(req.body)
     Showroom.find().select("-License -Password").then((result) => {
         if(result) {
             return res.status(201).json({ 'msg': result });
@@ -46,7 +44,6 @@ exports.getAllShowroom =  (req, res) => {
 
 // Export a specific Showroom details function
 exports.getShowroom =  (req, res) => {
-    console.log(req.body)
     Showroom.find({_id: req.body.ShowroomId}).select("-License -Password").then((result) => {
         if(result) {
             return res.status(201).json({ 'msg': result });
@@ -60,7 +57,6 @@ exports.getShowroom =  (req, res) => {
 
 // Export Pending Showroom details function
 exports.getPending =  (req, res) => {
-    console.log(req.body)
     Showroom.find({Verification: false}).select("-License -Password").then((result) => {
         if(result) {
             return res.status(201).json({ 'msg': result });
@@ -74,7 +70,6 @@ exports.getPending =  (req, res) => {
 
 // Export Accepted Showroom details function
 exports.getAccepted =  (req, res) => {
-    console.log(req.body)
     Showroom.find({Verification: true}).select("-License -Password").then((result) => {
         if(result) {
             return res.status(201).json({ 'msg': result });
@@ -103,7 +98,6 @@ exports.UpdateShowroom = (req, res) => {
 
 // Export All Showroom details function for Admin
 exports.getAllShowroomAdmin =  (req, res) => {
-    console.log(req.body)
     Showroom.find().then((result) => {
         if(result) {
             return res.status(201).json({ 'msg': result });

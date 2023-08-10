@@ -20,25 +20,10 @@ exports.AddTestDrive = (req, res) => {
             });
 };
 
-//Get My Showroom user
-/*
-exports.getMyShowroom = (req, res) => {
-    TestDrives.find({ CustomerId: req.body.CustomerId, TestDriveStatus: true }).populate([ {path:"ShowroomId", select: "Name Email Phone ShowroomName Address City District"}, {path:"CarId", select: "Carmodel Manufacturer Price Loan CarImage"}]).then((result) => {
 
-        if (result) {
-            return res.status(201).json({ 'msg': result });
-        }
-
-    })
-    .catch((err) => {
-        console.log(err)
-        return res.status(401).json({ 'msg2': 'Fetching details failed' })
-    });
-}*/
-
-//Get My test drive request pending
-exports.getUserTestDrivesPending = (req, res) => {
-    TestDrives.find({ CustomerId: req.body.CustomerId, TestDriveStatus: false }).populate(["CarId",{path:"ShowroomId", select: "Name Email Phone ShowroomName Address City District"}]).then((result) => {
+//Get My test drive request Customer
+exports.getUserTestDrives = (req, res) => {
+    TestDrives.find({ CustomerId: req.body.CustomerId }).populate(["CarId",{path:"ShowroomId", select: "Name Email Phone ShowroomName Address City District"}]).then((result) => {
 
         if (result) {
             return res.status(201).json({ 'msg': result });
@@ -51,39 +36,9 @@ exports.getUserTestDrivesPending = (req, res) => {
     });
 }
 
-//Get My test drive request Accepted
-exports.getUserTestDrivesAccepted = (req, res) => {
-    TestDrives.find({ CustomerId: req.body.CustomerId, TestDriveStatus: true }).populate(["CarId",{path:"ShowroomId", select: "Name Email Phone ShowroomName Address City District"}]).then((result) => {
-
-        if (result) {
-            return res.status(201).json({ 'msg': result });
-        }
-
-    })
-    .catch((err) => {
-        console.log(err)
-        return res.status(401).json({ 'msg2': 'Fetching Test drive details failed' })
-    });
-}
-
-// Get TestDrive Request which are pending from Showroom
-exports.ShowroomPendingTestDrives = (req, res) => {
-    TestDrives.find({ ShowroomId: req.body.ShowroomId, TestDriveStatus: false }).populate([{path:"CustomerId", select: "Name Phone Email"}, {path:"CarId", select: "Carmodel Manufacturer Price Loan CarImage"}]).then((result) => {
-
-        if (result) {
-            return res.status(201).json({ 'msg': result });
-        }
-
-    })
-    .catch((err) => {
-        console.log(err)
-        return res.status(401).json({ 'msg2': 'Fetching TestDrive Details Failed' })
-    });
-}
-
-// Get TestDrive Request which are Accepted from Showroom
-exports.ShowroomAcceptedTestDrives = (req, res) => {
-    TestDrives.find({ ShowroomId: req.body.ShowroomId, TestDriveStatus: true }).populate([{path:"CustomerId", select: "Name Phone Email"}, {path:"CarId", select: "Carmodel Manufacturer Price Loan CarImage"}]).then((result) => {
+// Get TestDrive Request which are from Showroom
+exports.ShowroomTestDrives = (req, res) => {
+    TestDrives.find({ ShowroomId: req.body.ShowroomId}).populate([{path:"CustomerId", select: "Name Phone Email"}, {path:"CarId", select: "Carmodel Manufacturer Price Loan CarImage"}]).then((result) => {
 
         if (result) {
             return res.status(201).json({ 'msg': result });
@@ -110,20 +65,3 @@ exports.UpdateTestDrive = (req, res) => {
         return res.status(401).json({ 'msg2': 'Accepting TestDrive Failed' })
     });
 }
-
-
-// Get Accepted car TestDrives - My Customers
-/*
-exports.getAcceptedTestDrives = (req, res) => {
-    TestDrives.find({ ShowroomId: req.body.ShowroomId, TestDriveStatus: true }).populate([{path:"CustomerId", select: "Name Phone Email"}, {path:"CarId", select: "Carmodel Manufacturer Price Loan CarImage"}]).then((result) => {
-
-        if (result) {
-            return res.status(201).json({ 'msg': result });
-        }
-
-    })
-    .catch((err) => {
-        console.log(err)
-        return res.status(401).json({ 'msg2': 'Fetching Accepted TestDrive Details Failed' })
-    });
-}*/

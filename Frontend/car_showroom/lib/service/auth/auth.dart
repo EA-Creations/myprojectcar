@@ -20,16 +20,18 @@ class AuthService {
     print(Urls.login);
     final response = await dio.post(Urls.login, data: user);
     print(response.data["token"]);
-    print(response.data["result"]["UserType"]);
+    print(response.data);
     if (response.statusCode == 201) {
       await storage.write(key: "token", value: response.data["token"]);
-      await storage.write(key: "UserType", value: response.data["result"]["UserType"]);
+      await storage.write(
+          key: "UserType", value: response.data["result"]["UserType"]);
       await storage.write(key: "id", value: response.data["result"]["_id"]);
+
       // await storage.write(key: "Name", value: response.data["result"]["Name"]);
       // await storage.write(key: "Email", value: response.data["result"]["Email"]);
       // await storage.write(key: "Phone", value: response.data["result"]["Phone"]);
       // await storage.write(key: "City", value: response.data["result"]["City"]);
-      
+
       storage.read(key: "token");
       storage.read(key: "UserType");
       storage.read(key: "id");

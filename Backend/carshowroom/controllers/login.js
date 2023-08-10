@@ -11,7 +11,6 @@ var jwt = require("jsonwebtoken");
 exports.login = (req, res) => {
     Users.findOne({ Email: req.body.Email,Password: req.body.Password }).then((result) => {
         if (result) {
-            console.log(result);
             const token = jwt.sign({ _id:result._id }, process.env.SECRET);
             res.cookie("token",token, { expire: new Date() + 9999 } );
             return res.status(201).json({token,result});
@@ -19,7 +18,6 @@ exports.login = (req, res) => {
         else{
             Showroom.findOne({ Email: req.body.Email,Password: req.body.Password }).then((result) => {
                 if (result) {
-                    console.log(result);
                     const token = jwt.sign({ _id:result._id }, process.env.SECRET);
                     res.cookie("token",token, { expire: new Date() + 9999 } );
                     return res.status(201).json({token,result});
